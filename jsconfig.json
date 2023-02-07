@@ -2,7 +2,34 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      // "@/components/*": [
+      //   "components/*"
+      // ],
+      // "@/website/*": [
+      //   "components/website/*"
+      // ],
+      // "@/helpers/*": [
+      //   "modules/helpers/*"
+      // ],
+      // "@/constants/*": [
+      //   "modules/constants/*"
+      // ],
+      // "@/plugins/*": [
+      //   "plugins/*"
+      // ]
     }
-  }
+  },
+  "exclude": [
+    ".git",
+    ".npm",
+    ".npm-tmp",
+    "out",
+    "out*",
+    "node_modules",
+    "**/out/*",
+    "**/node_modules/*"
+  ]
 }
