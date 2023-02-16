@@ -1,3 +1,4 @@
+import '../styles/global.css';
 import MasterPage from '@/components/master'
 import dynamic from 'next/dynamic';
 

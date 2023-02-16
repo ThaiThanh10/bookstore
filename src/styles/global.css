@@ -2,10 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer components {
-    .container {
-        @apply w-full max-w-[1280px] px-[15px] mx-auto relative;
-    }
+  .container {
+    @apply w-full max-w-[1280px] px-[15px] mx-auto relative;
+  }
+  .flexCenter {
+    @apply flex justify-center items-center;
+  }
 }
