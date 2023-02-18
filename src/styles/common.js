@@ -113,6 +113,9 @@ const GlobalStyle = () => (
         input[type='number'] {
             -moz-appearance: textfield;
         }
+        button, [type='button'], [type='reset'], [type='submit']{
+            background-color: inherit;
+        }
 
     `}</style>
 );

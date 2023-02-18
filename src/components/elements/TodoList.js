@@ -1,16 +1,25 @@
 import { api } from '@/config/api';
 import { PATH_API } from '@/config/path';
 import { useEffect, useState } from 'react';
-import { Button, Checkbox, message, Modal } from "antd";
+import { Button, Checkbox, DatePicker, message, Modal, TimePicker } from "antd";
 import moment from 'moment';
 
 const TodoList = () => {
+
+    const SECOND = 1000;
+    const MINUTE = SECOND * 60;
+    const HOUR = MINUTE * 60;
+    const DAY = HOUR * 24;
+
+
+    const [test, setTest] = useState();
 
 
     const [form, setForm] = useState({
         name: "",
         todo: "",
-        status: false
+        status: false,
+        // estimateTime: "00:00:00",
     });
 
 
@@ -122,6 +131,29 @@ const TodoList = () => {
 
     }
 
+
+    /* <-------  Count Time  -------> */
+    // const initCountdown = (endDateString) => {
+    //     // const endDateString = "2023-01-01 00:00:00";
+    //     const today = new Date();
+    //     const LAUNCH_DATE = new Date(endDateString);
+    //     const _distance = LAUNCH_DATE.getTime() - today.getTime();
+    //     return _distance;
+    // };
+
+
+
+
+
+
+    // const submitTime = (time) => {
+    //     setForm({
+    //         ...form,
+    //         estimateTime: time,
+    //     })
+    // }
+
+
     return (
         <div className='container'>
             <div className="flex py-[40px]">
@@ -133,9 +165,19 @@ const TodoList = () => {
                     <label htmlFor="todo">To Do</label>
                     <input className='input border-[1px] border-black mx-[10px]' type="text" name="todo" onChange={handleChange} value={form.todo} />
                 </div>
+                {/* <div className="flex mx-[20px]">
+
+
+                    <DatePicker
+                        popupClassName="customDatePicker"
+                        onChange={submitTime}
+                    />
+                </div> */}
                 <button className='btn btn-success' type="primary" onClick={postData}>
                     Submit
                 </button>
+
+
             </div>
             <div className="flex py-[40px] info">
                 <div className="relative overflow-x-auto">
@@ -157,15 +199,18 @@ const TodoList = () => {
                                 <th scope="col" className="px-6 py-3">
                                     Action
                                 </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Estimate Time
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 dataTodo.map((item, index) =>
                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={item.id}>
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {item.name}
-                                        </th>
+                                        </td>
                                         <td className="px-6 py-4">
                                             {item.todo}
                                         </td>
@@ -181,13 +226,17 @@ const TodoList = () => {
                                             <Checkbox onChange={() => toggleDone(index, item.id, item?.status)} defaultChecked={item?.status} />
                                         </td>
                                         <td className="px-6 py-4">
-                                            <button className='btn btn-error' type="primary" danger onClick={() => handleRemove(item.id)}>
+                                            <button className='btn btn-error' type="primary" onClick={() => handleRemove(item.id)}>
                                                 Remove
                                             </button>
                                             <span>{" "}</span>
                                             <button className='btn btn-success' type="primary" onClick={() => handleEdit(item, index)}>
                                                 Edit
                                             </button>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {/* {moment(initCountdown(item.estimateTime)).format('MMMM Do YYYY, h:mm:ss a')} */}
+
                                         </td>
                                     </tr>
                                 )
