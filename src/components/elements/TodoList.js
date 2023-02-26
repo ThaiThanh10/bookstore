@@ -11,8 +11,7 @@ const TodoList = () => {
     const HOUR = MINUTE * 60;
     const DAY = HOUR * 24;
 
-
-    const [test, setTest] = useState();
+    
 
 
     const [form, setForm] = useState({

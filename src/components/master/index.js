@@ -1,3 +1,4 @@
+import MainProvider from '@/components/context/MainProvider';
 import asset from '@/plugins/assets';
 import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
@@ -13,7 +14,8 @@ const Header = dynamic(() => import('@/components/elements/Header'), { ssr: fals
 
 
 const GlobalStyle = dynamic(() => import('@/styles/common'), { ssr: false });
-const MasterPage = ({ hideHeader, pageName, children, title, ...rest }) => {
+const MasterPage = ({ hideHeader, pageName, children, title,
+    ...rest }) => {
     const router = useRouter();
 
     return (
@@ -39,11 +41,13 @@ const MasterPage = ({ hideHeader, pageName, children, title, ...rest }) => {
 
             <GlobalStyle />
             {/* - ADD MORE PROVIDER INSIDE THIS COMPONENT */}
-            <main className='main'>
-                <Header />
-                {children}
-                <Footer />
-            </main>
+            <MainProvider>
+                <main className='main'>
+                    <Header />
+                    {children}
+                    <Footer />
+                </main>
+            </MainProvider>
         </>
     );
 };
