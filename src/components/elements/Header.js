@@ -82,6 +82,7 @@ const Header = ({ }) => {
         const { data } = datApi;
 
         const isSuccess = data.find(it => it.email == dataLogin.email && it.password == dataLogin.password);
+        
         if (isSuccess) {
             message.success("Login successfully");
             setIsModalLogin(false);
@@ -89,8 +90,6 @@ const Header = ({ }) => {
             setUserInfo(isSuccess);
             localStorage.setItem("isLogin", true);
             localStorage.setItem("userInfo", JSON.stringify(isSuccess));
-
-
 
         } else {
             message.error("Login failed");
