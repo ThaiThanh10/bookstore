@@ -1,186 +1,290 @@
-import { api } from "@/config/api";
-import { FormOutlined, LoginOutlined, LogoutOutlined } from "@ant-design/icons";
-import { PATH_API } from '@/config/path';
-import { message, Modal } from "antd";
-import { useContext, useState } from "react";
-import { MainContext } from "@/components/context/MainProvider";
+import asset from "@/plugins/assets";
+import {
+  LoginOutlined,
+  LogoutOutlined,
+  ShoppingCartOutlined,
+  UserAddOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { faPhone, faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useContext, useState } from "react";
+import { Modal, message } from "antd";
+import Title from "antd/es/typography/Title";
+import axios from "axios";
+import { MainContext } from "../context/MainProvider";
+const REGEX_EMAIL = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-const Header = ({ }) => {
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-    const { isModalLogin, setIsModalLogin, userInfo, setUserInfo, isLogin, setIsLogin, handleLogout } = useContext(MainContext);
+const Header = () => {
+  const { setUserInfo, setIsLogin, userInfo, isLogin,handleLogout } =
+    useContext(MainContext);
 
+  const [isModalLoginOpen, setIsModalLoginOpen] = useState(false);
+  const [isModalRegisOpen, setIsModalRegisOpen] = useState(false);
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+  const [err, setError] = useState({});
+  const [formLogin, setFormLogin] = useState({
+    email: "",
+    password: "",
+  });
 
+  const handleChange = (ev, isLogin) => {
+    const value = ev.target.value;
+    const name = ev.target.name;
+    if (isLogin) {
+      setFormLogin({ ...formLogin, [name]: value });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
+  };
+  const regis = async () => {
+    let err = {};
+    if (!form.email) {
+      err.email = "Please enter Email";
+      setError(err);
+      return;
+    }
+    if (!form.password) {
+      err.password = "Please enter Password";
+      setError(err);
+      return;
+    }
+    if (!REGEX_EMAIL.test(form.email)) {
+      err.emailWrongRegex = "It should be a valid email address!";
+      setError(err);
+      return;
+    }
 
-    const [form, setForm] = useState({
+    const isErr = Object.keys(err);
+    if (!isErr.length) {
+      console.log("Register Successfully", form);
+      setForm({
+        ...form,
         email: "",
         password: "",
-    });
-
-
-    const [dataLogin, setDataLogin] = useState({
-        email: "",
-        password: "",
-    });
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
+      });
     }
-    const showModalRegister = () => {
-        setIsModalOpen(true);
-    }
-
-
-    const handleChange = (e, isLogin) => {
-        const name = e.target.name
-        const value = e.target.value
-
-        if (isLogin) {
-            setDataLogin({
-                ...dataLogin,
-                [name]: value,
-            })
-        } else {
-            setForm({
-                ...form,
-                [name]: value,
-            })
-        }
-    }
-
-    const handleRegister = async () => {
-        if (!form.email && form.password) {
-            return;
-        }
-        await api({
-            url: PATH_API.login,
-            method: "POST",
-            data: form,
-        });
-        message.success("Register successfully - please login");
-        handleCancel();
+    await axios
+      .post("https://testapi.io/api/thaithanh10/resource/Register", form)
+      .then(function (res) {
+        console.log("🚀res---->", res);
+        message.success("Register Successfully");
+        handleRegisCancel();
         showModalLogin();
+      });
+  };
+  const handleSignIn = async () => {
+    var dataApi = [];
+    await axios
+      .get("https://testapi.io/api/thaithanh10/resource/Register")
+      .then(function (res) {
+        dataApi = res.data.data;
+      });
+    const isSuccess = dataApi.find(
+      (item) =>
+        item.email == formLogin.email && item.password == formLogin.password
+    );
+    if (isSuccess) {
+      message.success("Login Successfully");
+      setUserInfo(isSuccess);
+      localStorage.setItem("userInfo", JSON.stringify(isSuccess));
+      localStorage.setItem("isLogin", true);
+      setFormLogin({
+        email: "",
+        password: "",
+      });
+      setIsLogin(true);
+      handleLoginCancel();
     }
+  };
 
-    const showModalLogin = () => {
-        setIsModalLogin(true);
-    };
+  const showModalLogin = () => {
+    setIsModalLoginOpen(true);
+  };
+  const showModalRegis = () => {
+    setIsModalRegisOpen(true);
+  };
+  const handleLoginCancel = () => {
+    setIsModalLoginOpen(false);
+  };
+  const handleRegisCancel = () => {
+    setIsModalRegisOpen(false);
+  };
+  const handleRegis = () => {};
+  return (
+    <header>
+      <div className="border-b-[1px] border-b-[#eae8e4] border-b-solid">
+        <div className="container-fluid px-[60px] ">
+          <div className="flex justify-between items-center py-[8px]">
+            <ul className="flex justify-between items-center gap-x-[10px] ">
+              <li>
+                <a href="#" className="text">
+                  <FontAwesomeIcon icon={faQuestion} className="mr-2" />
+                  Can we help you?
+                </a>
+              </li>
+              <li>
+                <a href="tel:+1246-345-0695" className="text">
+                  <FontAwesomeIcon icon={faPhone} className="mr-2" />
+                  +1 246-345-0695
+                </a>
+              </li>
+            </ul>
+            <ul className="flex justify-center items-center gap-x-[20px]">
+              {isLogin ? (
+                <span className="flex gap-x-[10px]">
+                  <li>
+                    <a>
+                      <UserOutlined />
+                    </a>
+                  </li>
+                  <li>
+                    <a onClick={handleLogout}>
+                      <LogoutOutlined />
+                    </a>
+                  </li>
+                </span>
+              ) : (
+                <span className="flex gap-x-[10px]">
+                  <li>
+                    <a>
+                      <UserAddOutlined onClick={showModalRegis} />
+                    </a>
+                  </li>
+                  <li>
+                    <a onClick={showModalLogin}>
+                      <LoginOutlined />
+                    </a>
+                  </li>
+                </span>
+              )}
+              <li>
+                <a>
+                  <ShoppingCartOutlined />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="relative">
+        <div className="flex justify-between items-center relative flex-wrap py-[23px] px-[60px] ">
+          <div className="site-branding pr-md-4">
+            <a>
+              <img src={asset("images/logo.svg")} alt="" />
+            </a>
+          </div>
+          <div>
+            <ul className="flex justify-center items-center gap-x-[15px] ml-[30px] ">
+              <li className="nav-item dropdown">
+                <a className="text  ">Home</a>
+              </li>
+              <li>
+                <a className=" text ">Categories</a>
+              </li>
+              <li>
+                <a className="text   ">Shop</a>
+              </li>
+              <li>
+                <a className="text  ">Pages</a>
+              </li>
+              <li>
+                <a className="text  ">Blog</a>
+              </li>
+              <li>
+                <a className="text  ">Others</a>
+              </li>
+            </ul>
+          </div>
+          <div className=" my-2 ">
+            <form>
+              <div>
+                <input
+                  className="form-control bg-[#fff] min-w-[380px] p-[10px] text-[18px] min-h-[40px] outline-none border-white"
+                  type="search"
+                  placeholder="Search for Books by Keyword ..."
+                />
+              </div>
+              <button
+                className="btn btn-outline-success my-2 my-sm-0 sr-only"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <Modal open={isModalRegisOpen} onCancel={handleRegisCancel} footer={null}>
+        <div className="flex justify-center items-start gap-y-[15px] flex-col">
+          <Title style={{ margin: "0 auto" }} level={1}>
+            Register
+          </Title>
+          <label className="text">Email</label>
+          <input
+            onChange={handleChange}
+            value={form.email}
+            className=" border-[1px] mr-[18px] bg-[#fff] w-full px-[20px] py-[10px] text-[20px] min-h-[40px] outline-none border-[#000] border-solid"
+            type="text"
+            name="email"
+            placeholder="Email"
+            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          />
+          {err.email && <span>{err.email}</span>}
+          {err.emailWrongRegex && <span>{err.emailWrongRegex}</span>}
+          <label className="text">Password</label>
+          <input
+            onChange={handleChange}
+            value={form.password}
+            className=" border-[1px] mr-[18px] bg-[#fff] w-full px-[20px] py-[10px] text-[20px] min-h-[40px] outline-none border-[#000] border-solid"
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
+          {err.password && <span>{err.password}</span>}
+          <button className="btn btn-secondary mt-[20px]" onClick={regis}>
+            Register
+          </button>
+        </div>
+      </Modal>
+      <Modal open={isModalLoginOpen} onCancel={handleLoginCancel} footer={null}>
+        <div className="flex justify-center items-start gap-y-[15px] flex-col">
+          <Title style={{ margin: "0 auto" }} level={1}>
+            Login
+          </Title>
+          <label className="text">Email</label>
+          <input
+            onChange={(ev) => handleChange(ev, true)}
+            value={formLogin.email}
+            className=" border-[1px] mr-[18px] bg-[#fff] w-full px-[20px] py-[10px] text-[20px] min-h-[40px] outline-none border-[#000] border-solid"
+            type="text"
+            name="email"
+            placeholder="Email"
+          />
+          <label className="text">Password</label>
+          <input
+            onChange={(ev) => handleChange(ev, true)}
+            value={formLogin.password}
+            className=" border-[1px] mr-[18px] bg-[#fff] w-full px-[20px] py-[10px] text-[20px] min-h-[40px] outline-none border-[#000] border-solid"
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
+          <button
+            onClick={handleSignIn}
+            className="btn btn-secondary mt-[20px]"
+          >
+            Log In
+          </button>
+        </div>
+      </Modal>
+    </header>
+  );
+};
 
-
-    const handleLogin = async () => {
-
-        if (!dataLogin.email && dataLogin.password) {
-            return;
-        }
-        /* <-------  Get data from database  -------> */
-        const datApi = await api({
-            url: PATH_API.login,
-            method: "GET",
-        });
-        const { data } = datApi;
-
-        const isSuccess = data.find(it => it.email == dataLogin.email && it.password == dataLogin.password);
-        
-        if (isSuccess) {
-            message.success("Login successfully");
-            setIsModalLogin(false);
-            setIsLogin(true);
-            setUserInfo(isSuccess);
-            localStorage.setItem("isLogin", true);
-            localStorage.setItem("userInfo", JSON.stringify(isSuccess));
-
-        } else {
-            message.error("Login failed");
-        }
-
-    }
-
-
-
-
-    return (
-        <header className='header w-full bg-slate-400'>
-            <div className="navbar bg-base-100">
-                <div className="navbar-start">
-                    <div className="dropdown">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-                        </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><a>Homepage</a></li>
-                            <li><a>Portfolio</a></li>
-                            <li><a>About</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="navbar-center">
-                    <a className="btn btn-ghost normal-case text-xl">Task Management</a>
-                </div>
-                <div className="navbar-end">
-                    <button className="btn btn-ghost btn-circle" onClick={showModalRegister}>
-                        <FormOutlined />
-                    </button>
-
-                    {
-                        isLogin ?
-                            <button className="btn btn-ghost btn-circle" onClick={handleLogout}>
-                                <LogoutOutlined />
-                            </button> :
-                            <button className="btn btn-ghost btn-circle" onClick={showModalLogin}>
-                                <LoginOutlined />
-                            </button>
-                    }
-
-                    {/* <button className="btn btn-ghost btn-circle">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                    </button>
-                    <button className="btn btn-ghost btn-circle">
-                        <div className="indicator">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-                            <span className="badge badge-xs badge-primary indicator-item"></span>
-                        </div>
-                    </button> */}
-                    <div>
-                        {userInfo?.email && userInfo?.email}
-                    </div>
-                </div>
-            </div>
-
-            <Modal title="Modal Register" open={isModalOpen} footer={null} onCancel={handleCancel}>
-                <div className="flex mb-[20px]">
-                    <label className="w-[200px]" htmlFor="name">Email</label>
-                    <input className='input w-full border-[1px] border-black mx-[10px]' type="text" name="email" onChange={handleChange} />
-                </div>
-                <div className="flex  mb-[20px]">
-                    <label className="w-[200px]" htmlFor="todo">Password</label>
-                    <input className='input w-full border-[1px] border-black mx-[10px]' type="password" name="password" onChange={handleChange} />
-                </div>
-                <div className="flexCenter">
-                    <button className='btn btn-success' type="primary" onClick={handleRegister}>
-                        Register
-                    </button>
-                </div>
-            </Modal>
-            <Modal title="Modal Login" open={isModalLogin} footer={null} onCancel={() => setIsModalLogin(false)}>
-                <div className="flex mb-[20px]">
-                    <label className="w-[200px]" htmlFor="name">Email</label>
-                    <input className='input w-full border-[1px] border-black mx-[10px]' type="text" name="email" onChange={(e) => handleChange(e, true)} />
-                </div>
-                <div className="flex  mb-[20px]">
-                    <label className="w-[200px]" htmlFor="todo">Password</label>
-                    <input className='input w-full border-[1px] border-black mx-[10px]' type="password" name="password" onChange={(e) => handleChange(e, true)} />
-                </div>
-                <div className="flexCenter">
-                    <button className='btn btn-success' type="primary" onClick={handleLogin}>
-                        Login
-                    </button>
-                </div>
-            </Modal>
-
-        </header>
-    )
-}
-
-export default Header
+export default Header;

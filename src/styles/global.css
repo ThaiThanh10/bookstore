@@ -10,3 +10,31 @@
     @apply flex justify-center items-center;
   }
 }
+body {
+  font-family: 'sans-serif';
+  color: #161619;
+
+
+}
+a,p,span {
+  font-size: 16px;
+  line-height: 21px;
+
+}
+a:hover {
+  cursor: pointer;
+  color: #f30b0b;
+}
+.text {
+  font-size: 24px;
+  line-height: 24px;
+
+}
+.title {
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 36px;
+}
+.banner {
+  background-image: url(/images/bg-banner.jpg);
+}

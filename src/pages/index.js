@@ -8,14 +8,14 @@ import MasterPage from '@/components/master'
 import React, { useState } from 'react'
 import dynamic from 'next/dynamic';
 
-const UIDashBoard = dynamic(() => import('@/components/website/pages/UIDashBoard'));
+const UIHomepage = dynamic(() => import('@/components/website/pages/UIHomepage/UIHomepage'));
 
 
 const home = () => {
 
     return (
         <MasterPage title="HomePage" >
-            <UIDashBoard />
+            <UIHomepage />
         </MasterPage>
     )
 }
