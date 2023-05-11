@@ -16,7 +16,6 @@ import { MainContext } from "../context/MainProvider";
 const REGEX_EMAIL = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 
-
 const Header = () => {
   const { setUserInfo, setIsLogin, userInfo, isLogin,handleLogout } =
     useContext(MainContext);
