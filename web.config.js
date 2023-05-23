@@ -13,7 +13,7 @@ export const Environment = {
 const CONFIG = {
     environment: process.env.NEXT_PUBLIC_ENV || 'development',
     site: {
-        title: 'TaskManagement',
+        title: 'Bookstore',
         description: 'Description goes here',
         type: 'article',
     },

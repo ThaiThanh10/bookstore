@@ -1,3 +1,40 @@
-.ant-btn {
-    background-color: #f75454;
+.dropbtn {
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+}.dropdown {
+    width: max-content;
+    position: relative;
+}
+
+.dropdown-content {
+    border: 1px solid #000;
+    display: block;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 130px;
+    width: max-content;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 9;
+    transform: scaleY(0);
+    transition: all 0.3s ease;
+    transform-origin: top center;
+}
+
+.dropdown-content .navItem {
+    padding: 12px 25px;
+    font-size: 16px;
+    transition: all 0.2s ease-in-out;
+}
+
+.dropDown:hover .dropdown-content {
+    transform: scaleY(1);
+}
+.dropdown-content .navItem:hover {
+    transform: translateX(12px);
+    color: red;
+    cursor: pointer;
+}
+.dropdown-content li:hover {
+    background-color: #f7f7f7;
 }

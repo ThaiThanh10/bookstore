@@ -4,6 +4,8 @@ import React from "react";
 const Footer = () => {
   return (
     <footer>
+      <span className="w-screen h-[1px] bg-[#eae8e4] block mb-[95px] "></span>
+
       <div className="border-top space-top-3">
         <div className="border-b-[1px] border-b-[#eae8e4] border-b-solid pb-[90px] ">
           <div className="container">
@@ -21,14 +23,14 @@ const Footer = () => {
                   type="text"
                   placeholder="Enter email for weekly newsletter."
                 />
-                <button className="bg-[#000] rounded-0 btn-wide py-3 text-white text-[20px] ">
+                <button className="bg-[#000] rounded-0 btn-wide py-3 text-white text-[20px] button ">
                   Subscribe
                 </button>
               </div>
             </div>
 
             <div className="flex justify-between items-start">
-              <div  >
+              <div>
                 <div className="pb-6">
                   <a>
                     <img
@@ -59,7 +61,7 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
-              <div  >
+              <div>
                 <h4 className=" text mb-[30px]">Explore</h4>
                 <ul>
                   <li className="py-2">
@@ -76,7 +78,7 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div >
+              <div>
                 <h4 className=" text mb-[30px]">Customer Service</h4>
                 <ul>
                   <li className="py-2">
@@ -99,7 +101,7 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div >
+              <div>
                 <h4 className=" text mb-[30px]">Policy</h4>
                 <ul>
                   <li className="py-2">
@@ -116,7 +118,7 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div  >
+              <div>
                 <h4 className=" text mb-[30px]">Categories</h4>
                 <ul>
                   <li className="py-2">

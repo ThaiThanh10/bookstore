@@ -1,5 +1,6 @@
 import asset from "@/plugins/assets";
 import {
+  DownOutlined,
   LoginOutlined,
   LogoutOutlined,
   ShoppingCartOutlined,
@@ -9,16 +10,28 @@ import {
 import { faPhone, faQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useState } from "react";
-import { Modal, message } from "antd";
+import { Badge, Modal, message } from "antd";
 import Title from "antd/es/typography/Title";
 import axios from "axios";
 import { MainContext } from "../context/MainProvider";
+import Link from "next/link";
+import "./header.css";
 const REGEX_EMAIL = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-
+import styled from "styled-components";
+import { useRouter } from "next/router";
+const RedLink = styled.a`
+  color: red;
+`;
 const Header = () => {
-  const { setUserInfo, setIsLogin, userInfo, isLogin,handleLogout } =
-    useContext(MainContext);
+  const {
+    setUserInfo,
+    setIsLogin,
+    userInfo,
+    isLogin,
+    handleLogout,
+    count,
+    listCart,
+  } = useContext(MainContext);
 
   const [isModalLoginOpen, setIsModalLoginOpen] = useState(false);
   const [isModalRegisOpen, setIsModalRegisOpen] = useState(false);
@@ -31,7 +44,7 @@ const Header = () => {
     email: "",
     password: "",
   });
-
+  const router = useRouter();
   const handleChange = (ev, isLogin) => {
     const value = ev.target.value;
     const name = ev.target.name;
@@ -58,7 +71,6 @@ const Header = () => {
       setError(err);
       return;
     }
-
     const isErr = Object.keys(err);
     if (!isErr.length) {
       console.log("Register Successfully", form);
@@ -70,12 +82,11 @@ const Header = () => {
     }
     await axios
       .post("https://testapi.io/api/thaithanh10/resource/Register", form)
-      .then(function (res) {
-        console.log("🚀res---->", res);
-        message.success("Register Successfully");
-        handleRegisCancel();
-        showModalLogin();
-      });
+      .then(
+        message.success("Register Successfully"),
+        handleRegisCancel(),
+        showModalLogin()
+      );
   };
   const handleSignIn = async () => {
     var dataApi = [];
@@ -114,13 +125,22 @@ const Header = () => {
   const handleRegisCancel = () => {
     setIsModalRegisOpen(false);
   };
-  const handleRegis = () => {};
+  const handleCart = () => {
+    if (isLogin) {
+      localStorage.setItem("count", count);
+      localStorage.setItem("listCart", JSON.stringify(listCart));
+      router.push("/cart");
+    } else {
+      message.warning("Please Log In First");
+      return;
+    }
+  };
   return (
     <header>
       <div className="border-b-[1px] border-b-[#eae8e4] border-b-solid">
         <div className="container-fluid px-[60px] ">
-          <div className="flex justify-between items-center py-[8px]">
-            <ul className="flex justify-between items-center gap-x-[10px] ">
+          <div className="flex justify-between items-center py-[10px]">
+            <ul className="flex justify-between items-center gap-x-[40px] ">
               <li>
                 <a href="#" className="text">
                   <FontAwesomeIcon icon={faQuestion} className="mr-2" />
@@ -134,9 +154,9 @@ const Header = () => {
                 </a>
               </li>
             </ul>
-            <ul className="flex justify-center items-center gap-x-[20px]">
+            <ul className="flex justify-center items-center gap-x-[40px]">
               {isLogin ? (
-                <span className="flex gap-x-[10px]">
+                <span className="flex gap-x-[40px]">
                   <li>
                     <a>
                       <UserOutlined />
@@ -149,7 +169,7 @@ const Header = () => {
                   </li>
                 </span>
               ) : (
-                <span className="flex gap-x-[10px]">
+                <span className="flex gap-x-[40px]">
                   <li>
                     <a>
                       <UserAddOutlined onClick={showModalRegis} />
@@ -163,8 +183,11 @@ const Header = () => {
                 </span>
               )}
               <li>
-                <a>
-                  <ShoppingCartOutlined />
+                <a onClick={handleCart}>
+                  <Badge count={count}>
+                    {/* <Avatar shape="square" size="large" /> */}
+                    <ShoppingCartOutlined />
+                  </Badge>
                 </a>
               </li>
             </ul>
@@ -173,38 +196,147 @@ const Header = () => {
       </div>
       <div className="relative">
         <div className="flex justify-between items-center relative flex-wrap py-[23px] px-[60px] ">
-          <div className="site-branding pr-md-4">
+          <div className="flex justify-between items-center">
             <a>
               <img src={asset("images/logo.svg")} alt="" />
             </a>
-          </div>
-          <div>
-            <ul className="flex justify-center items-center gap-x-[15px] ml-[30px] ">
-              <li className="nav-item dropdown">
-                <a className="text  ">Home</a>
-              </li>
-              <li>
-                <a className=" text ">Categories</a>
-              </li>
-              <li>
-                <a className="text   ">Shop</a>
-              </li>
-              <li>
-                <a className="text  ">Pages</a>
-              </li>
-              <li>
-                <a className="text  ">Blog</a>
-              </li>
-              <li>
-                <a className="text  ">Others</a>
-              </li>
+            <ul className="flex justify-center items-center gap-x-[50px] ml-[80px] mt-[5px] ">
+              <div className=" dropDown  ">
+                <Link
+                  className="flex justify-center items-center dropbtn"
+                  href="/"
+                >
+                  <p className="text mr-[8px] ">Home</p>
+                  <DownOutlined />
+                </Link>
+                <div className="dropdown-content">
+                  <li>
+                    <p className="navItem  ">Home 1</p>
+                  </li>
+                  <li>
+                    <p className="navItem  ">Home 2</p>
+                  </li>
+                  <li>
+                    <p className="navItem  ">Home 3</p>
+                  </li>
+                  <li>
+                    <p className="navItem  ">Home 4</p>
+                  </li>
+                  <li>
+                    <p className="navItem  ">Home 5</p>
+                  </li>
+                </div>
+              </div>
+              <div>
+                <Link
+                  className="flex justify-center items-center"
+                  href="/error"
+                >
+                  <p className="text mr-[8px] ">Categories</p>
+                  <DownOutlined />
+                </Link>
+              </div>
+              <div className=" dropDown  ">
+                <Link
+                  className="flex justify-center items-center dropbtn"
+                  href="/"
+                >
+                  <p className="text mr-[8px] ">Shop</p>
+                  <DownOutlined />
+                </Link>
+                <div className="dropdown-content">
+                  <li>
+                    <Link href="/shoplist">
+                      <p className=" navItem ">Shop List</p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/productdetail">
+                      <p className=" navItem ">Product Detail</p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/cart">
+                      <p className=" navItem ">Shop Cart</p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/checkout">
+                      <p className=" navItem ">Shop Checkout</p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/account">
+                      <p className=" navItem ">My Account</p>
+                    </Link>
+                  </li>
+                </div>
+              </div>
+              <div>
+                <Link
+                  className="flex justify-center items-center"
+                  href="/error"
+                >
+                  <p className="text mr-[8px] ">Pages</p>
+                  <DownOutlined />
+                </Link>
+              </div>
+              <div>
+                <Link
+                  className="flex justify-center items-center"
+                  href="/error"
+                >
+                  <p className="text mr-[8px] ">Blog</p>
+                  <DownOutlined />
+                </Link>
+              </div>
+              <div className=" dropDown  ">
+                <span className="flex justify-center items-center dropbtn">
+                  <p className="text mr-[8px] ">Others</p>
+                  <DownOutlined />
+                </span>
+                <div className="dropdown-content">
+                  <li>
+                    {" "}
+                    <Link href="/error">
+                      <p className=" navItem ">404</p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/about">
+                      <p className=" navItem ">About Us</p>
+                    </Link>
+                    {/* <RedLink>About Us</RedLink> */}
+                  </li>
+                  <li>
+                    <Link href="/contact">
+                      <p className=" navItem ">Contact Us</p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/faq">
+                      <p className=" navItem ">FAQ</p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/pricing">
+                      <p className=" navItem ">Pricing Table</p>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/term">
+                      <p className=" navItem ">Term Conditions</p>
+                    </Link>
+                  </li>
+                </div>
+              </div>
             </ul>
           </div>
           <div className=" my-2 ">
             <form>
               <div>
                 <input
-                  className="form-control bg-[#fff] min-w-[380px] p-[10px] text-[18px] min-h-[40px] outline-none border-white"
+                  className="form-control bg-[#f6f5f3] min-w-[400px] p-[10px] text-[18px] min-h-[45px] outline-none border-white"
                   type="search"
                   placeholder="Search for Books by Keyword ..."
                 />
@@ -246,9 +378,14 @@ const Header = () => {
             placeholder="Password"
           />
           {err.password && <span>{err.password}</span>}
-          <button className="btn btn-secondary mt-[20px]" onClick={regis}>
-            Register
-          </button>
+          <div className="w-full flexCenter ">
+            <button
+              className="btn btn-secondary px-[20px] py-[7px] mt-[20px] "
+              onClick={regis}
+            >
+              Register
+            </button>
+          </div>
         </div>
       </Modal>
       <Modal open={isModalLoginOpen} onCancel={handleLoginCancel} footer={null}>
@@ -274,14 +411,17 @@ const Header = () => {
             name="password"
             placeholder="Password"
           />
-          <button
-            onClick={handleSignIn}
-            className="btn btn-secondary mt-[20px]"
-          >
-            Log In
-          </button>
+          <div className="w-full flexCenter">
+            <button
+              onClick={handleSignIn}
+              className="btn btn-secondary px-[20px] py-[7px] mt-[20px]"
+            >
+              Log In
+            </button>
+          </div>
         </div>
       </Modal>
+      <span className="w-screen h-[1px] bg-[#eae8e4] block  "></span>
     </header>
   );
 };

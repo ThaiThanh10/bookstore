@@ -14,7 +14,7 @@ const UIHomepage = dynamic(() => import('@/components/website/pages/UIHomepage/U
 const home = () => {
 
     return (
-        <MasterPage title="HomePage" >
+        <MasterPage title=" Home" >
             <UIHomepage />
         </MasterPage>
     )
