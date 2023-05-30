@@ -38,3 +38,6 @@
 .dropdown-content li:hover {
     background-color: #f7f7f7;
 }
+.ant-modal-wrap .ant-modal .ant-modal-content {
+    background-color: #eff1f3;
+  }

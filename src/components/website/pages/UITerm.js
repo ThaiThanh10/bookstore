@@ -2,7 +2,7 @@ import React from "react";
 
 const UITerm = () => {
   return (
-    <div className="container mb-[90px]">
+    <div className="container my-[80px]">
       <h1 className=" text-[40px] font-medium tracking-wide leading-[48px] text-center mb-[60px] ">
         Term & Conditions
       </h1>

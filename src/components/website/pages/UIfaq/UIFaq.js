@@ -13,9 +13,9 @@ const UIFaq = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-[80px] ">
       <h1 className=" text-[40px] font-medium tracking-wide leading-[48px] text-center mb-[60px] ">
-        Frequently Askedd Question
+        Frequently Asked Question
       </h1>
       <div className="mb-[80px]">
         <h1 className="text-[22px] leading-[22px] mb-[32px] ">Shopping</h1>

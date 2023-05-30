@@ -1,8 +1,17 @@
+import { MainContext } from "@/components/context/MainProvider";
 import asset from "@/plugins/assets";
-import { HeartOutlined } from "@ant-design/icons";
-import React from "react";
+import { HeartFilled, HeartOutlined } from "@ant-design/icons";
+import React, { useContext, useState } from "react";
 
-const Item = ({ title, img, authors, price, onClick }) => {
+const Item = ({
+  title,
+  img,
+  authors,
+  price,
+  onClick,
+  handleWishlist,
+  iconWishlist,
+}) => {
   return (
     <div className="border-[1px] aspect-[0.6] min-w-[200px] relative z-9 item  border-[#eae8e4] p-[25px] bg-[#fff] flex flex-col justify-between items-start hover:border-[#000] ">
       <div className="mx-auto">
@@ -25,8 +34,15 @@ const Item = ({ title, img, authors, price, onClick }) => {
               alt=""
             />
           </button>
-          <button className="mt-[7px]">
-            <HeartOutlined />
+          <button
+            onClick={handleWishlist}
+            className="mt-[7px] text-rose-600 duration-200 transition-all "
+          >
+            {iconWishlist ? (
+              <HeartFilled style={{ display: "block" }} />
+            ) : (
+              <HeartOutlined style={{ display: "block" }} />
+            )}
           </button>
         </div>
       </div>

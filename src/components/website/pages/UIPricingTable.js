@@ -9,10 +9,10 @@ export const PricingBox = () => {
         <p>Per Month</p>
       </div>
       <div className="flex flex-col justify-center items-center gap-y-[15px] mb-[45px]">
-        <h1 className="text-[20px]">400+ Pages</h1>
-        <h1 className="text-[20px]">Quality & Customer Experience</h1>
-        <h1 className="text-[20px]">Power And Predictive Dialing</h1>
-        <h1 className="text-[20px]">24/7 phone and email support</h1>
+        <h1 className="text-[18px]">400+ Pages</h1>
+        <h1 className="text-[18px]">Quality & Customer Experience</h1>
+        <h1 className="text-[18px]">Power And Predictive Dialing</h1>
+        <h1 className="text-[18px]">24/7 phone and email support</h1>
       </div>
       <button className="bg-[#000] rounded-0 py-[20px] px-[48px] mx-auto text-white text-[20px] button ">
         Submit Message
@@ -23,7 +23,7 @@ export const PricingBox = () => {
 
 const UIPricingTable = () => {
   return (
-    <div className="container mb-[90px]">
+    <div className="container my-[80px]">
       <h1 className=" text-[40px] font-medium tracking-wide leading-[48px] text-center mb-[60px] ">
         Pricing Table
       </h1>

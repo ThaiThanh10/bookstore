@@ -1,5 +1,5 @@
 import asset from "@/plugins/assets";
-import { MacCommandOutlined, RightOutlined } from "@ant-design/icons";
+import { RightOutlined } from "@ant-design/icons";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { DATA_PAGE_1 } from "./DATA_PAGE_1.js";
@@ -7,6 +7,7 @@ import { DATA_BEST_SELLING } from "./DATA_BEST_SELLING.js";
 import Item from "./Item.js";
 import { MainContext } from "@/components/context/MainProvider.js";
 import DealBox from "./DealBox.js";
+import wishlist from "@/pages/account/wishlist/index.js";
 
 const listAuthors = [
   {
@@ -54,14 +55,18 @@ export const BiographiesBooks = () => {
 };
 
 const UIHomepage = () => {
-  const { isLogin, count, setCount, listCart, handleAdd } =
+  const { isLogin, count, setCount, listCart, handleAdd, handleWishlist,wishlist } =
     useContext(MainContext);
-
+  const handleBuy = (item) => {
+    console.log("🚀itemBUy---->", item);
+    handleAdd(item);
+  };
   useEffect(() => {
-    setCount(listCart.length);
-    console.log("🚀listCart---->", listCart);
-    console.log("🚀count---->", count);
-  }, [listCart]);
+    if (listCart) {
+      setCount(listCart.length);
+    }
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [listCart, wishlist]);
 
   return (
     <div>
@@ -150,18 +155,22 @@ const UIHomepage = () => {
             </button>
           </div>
           <div className="grid grid-cols-5 ">
-            {DATA_BEST_SELLING.map((it, i) => (
-              <div>
-                <Item
-                  img={it.img}
-                  onClick={() => handleAdd(it.authors.id)}
-                  key={i + 1}
-                  title={it.title}
-                  authors={it.authors.name}
-                  price={it.price}
-                />
-              </div>
-            ))}
+            {DATA_PAGE_1.map(
+              (it, i) =>
+                i < 5 && (
+                  <Item
+                    iconWishlist={it.isLike}
+                    handleWishlist={() => handleWishlist(it)}
+                    img={it.img}
+                    className="bg-[#000]"
+                    onClick={() => handleAdd(it)}
+                    key={i + 1}
+                    title={it.title}
+                    authors={it.authors.name}
+                    price={it.price}
+                  />
+                )
+            )}
           </div>
         </div>
       </section>
@@ -180,9 +189,11 @@ const UIHomepage = () => {
                 (it, i) =>
                   i < 6 && (
                     <Item
+                      iconWishlist={it.isLike}
+                      handleWishlist={() => handleWishlist(it)}
                       img={it.img}
                       className="bg-[#000]"
-                      onClick={() => handleAdd(it.authors.id)}
+                      onClick={() => handleBuy(it)}
                       key={i + 1}
                       title={it.title}
                       authors={it.authors.name}
@@ -198,6 +209,8 @@ const UIHomepage = () => {
                 (it, i) =>
                   i >= 6 && (
                     <Item
+                      iconWishlist={it.isLike}
+                      handleWishlist={() => handleWishlist(it)}
                       img={it.img}
                       className="bg-[#000]"
                       onClick={() => handleAdd(it.authors.id)}
@@ -250,9 +263,11 @@ const UIHomepage = () => {
                 (it, i) =>
                   i < 8 && (
                     <Item
+                      iconWishlist={it.isLike}
+                      handleWishlist={() => handleWishlist(it)}
                       style={{ width: "1/3" }}
                       img={it.img}
-                      onClick={() => handleAdd(it.authors.id)}
+                      onClick={() => handleBuy(it)}
                       key={i + 1}
                       title={it.title}
                       authors={it.authors.name}

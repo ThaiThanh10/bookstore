@@ -1,10 +1,12 @@
-import React from "react";
-import { Collapse, Breadcrumb } from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import { Collapse, Breadcrumb, Select, Input } from "antd";
 import "./shoplist.css";
 import { DATA_PAGE_1 } from "../UIHomepage/DATA_PAGE_1";
 import Item from "../UIHomepage/Item";
+import { MainContext } from "@/components/context/MainProvider";
 const { Panel } = Collapse;
 const dataCate = [
+  "All",
   "Magazine",
   "Novel",
   "Life",
@@ -25,6 +27,68 @@ const dataFormat = [
 ];
 const dataLang = ["English", "German", "French", "Spanish", "Turkish"];
 const UIShopList = () => {
+  const {
+    setCount,
+    listCart,
+    handleAdd,
+    result,
+    setResult,
+    valueInput,
+    setValueInput,
+    wishlist,
+    handleWishlist
+  } = useContext(MainContext);
+  // const [result, setResult] = useState(DATA_PAGE_1);
+  const handleCate = (it) => {
+    if (it.toLowerCase() == "all") {
+      setResult(DATA_PAGE_1);
+      return;
+    }
+    const result = DATA_PAGE_1.filter(
+      (item) => item.type.toLowerCase() == it.toLowerCase()
+    );
+    setResult(result);
+  };
+  const handleSort = ({ value }) => {
+    const newData = [...DATA_PAGE_1];
+    if (value == "low") {
+      const result = newData.sort(
+        (a, b) => parseInt(a.price) - parseInt(b.price)
+      );
+      setResult(result);
+      return;
+    }
+    if (value == "high") {
+      const result = newData.sort(
+        (a, b) => parseInt(b.price) - parseInt(a.price)
+      );
+      setResult(result);
+    }
+  };
+  const handleChange = (ev) => {
+    const value = ev.target.value;
+    setValueInput(value);
+    if (!value) {
+      const newData = [...DATA_PAGE_1];
+      setResult(newData);
+    }
+    const newData = [...DATA_PAGE_1];
+    const result = newData.filter(
+      (it) =>
+        it.title.toLowerCase().includes(valueInput?.toLowerCase()) ||
+        it.authors.name.toLowerCase().includes(valueInput?.toLowerCase())
+    );
+    console.log("🚀result---->", result);
+    setResult(result);
+  };
+  
+  useEffect(() => {
+    if (listCart) {
+      setCount(listCart.length);
+    }
+    localStorage.setItem('wishlist',JSON.stringify(wishlist))
+  }, [listCart,wishlist]);
+
   return (
     <div className="mb-[90px]">
       <div>
@@ -40,11 +104,17 @@ const UIShopList = () => {
             <Collapse>
               <Panel header="Categories">
                 {dataCate.map((it, i) => (
-                  <p key={i} className="py-[7px] px-[5px]  hover:bg-[#f7f7f7]">
-                    <p className="text ml-[10px] transition-all duration-[0.2s] ease-[ease] hover:translate-x-[15px] ">
+                  <div
+                    key={i}
+                    className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
+                  >
+                    <p
+                      onClick={() => handleCate(it)}
+                      className="text ml-[10px] transition-all duration-[0.2s] ease-[ease] hover:translate-x-[15px] "
+                    >
                       {it}
                     </p>
-                  </p>
+                  </div>
                 ))}
               </Panel>
               <Panel header="Languages">
@@ -74,19 +144,53 @@ const UIShopList = () => {
             </Collapse>
           </div>
           <div className="w-[73%]">
-            <div className="mb-[20px] py-[10px] ">
+            <div className="mb-[20px] py-[10px] flex justify-between items-start ">
               <h1 className="text-[18px]">Showing 1–12 of 126 results</h1>
+              <Input
+                onChange={handleChange}
+                style={{ width: 300 }}
+                placeholder="Search"
+              />
+              <Select
+                labelInValue
+                defaultValue={{
+                  value: "none",
+                  label: "Sort by price",
+                }}
+                style={{
+                  width: 230,
+                }}
+                onChange={handleSort}
+                options={[
+                  {
+                    value: "low",
+                    label: "Low to high",
+                  },
+                  {
+                    value: "high",
+                    label: "High to low",
+                  },
+                ]}
+              />
             </div>
             <div className=" grid grid-cols-4 ">
-              {DATA_PAGE_1.map((it, i) => (
+              {result.map((it, i) => (
                 <Item
-                  onClick={() => handleAdd(it.authors.id)}
+                  img={it.img}
+                  onClick={() => handleAdd(it)}
+                  iconWishlist={it.isLike}
+                  handleWishlist={()=> handleWishlist(it)}
                   key={i + 1}
                   title={it.title}
                   authors={it.authors.name}
                   price={it.price}
                 />
               ))}
+            </div>
+            <div>
+              {!result.length && (
+                <h1 className="text">There is no result for your product</h1>
+              )}
             </div>
           </div>
         </div>

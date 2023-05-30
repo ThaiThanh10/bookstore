@@ -22,7 +22,7 @@ export const TeamBox = ({ imgSrc, name, position }) => {
 
 const UIAbout = () => {
   return (
-    <div>
+    <div className="pt-[80px]">
       <h1 className=" text-[32px] tracking-[2px] font-semibold text-center mb-[60px] ">
         About Us
       </h1>
