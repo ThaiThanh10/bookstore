@@ -36,7 +36,7 @@ const UIShopList = () => {
     valueInput,
     setValueInput,
     wishlist,
-    handleWishlist
+    handleWishlist,
   } = useContext(MainContext);
   // const [result, setResult] = useState(DATA_PAGE_1);
   const handleCate = (it) => {
@@ -81,13 +81,13 @@ const UIShopList = () => {
     console.log("🚀result---->", result);
     setResult(result);
   };
-  
+
   useEffect(() => {
     if (listCart) {
       setCount(listCart.length);
     }
-    localStorage.setItem('wishlist',JSON.stringify(wishlist))
-  }, [listCart,wishlist]);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [listCart, wishlist]);
 
   return (
     <div className="mb-[90px]">
@@ -131,10 +131,7 @@ const UIShopList = () => {
               </Panel>
               <Panel header="Format">
                 {dataFormat.map((it, i) => (
-                  <p
-                    key={i * 2}
-                    className="py-[7px] px-[5px]  hover:bg-[#f7f7f7]"
-                  >
+                  <p key={i} className="py-[7px] px-[5px]  hover:bg-[#f7f7f7]">
                     <p className="text ml-[10px] transition-all duration-[0.2s] ease-[ease] hover:translate-x-[15px] ">
                       {it}
                     </p>
@@ -179,7 +176,7 @@ const UIShopList = () => {
                   img={it.img}
                   onClick={() => handleAdd(it)}
                   iconWishlist={it.isLike}
-                  handleWishlist={()=> handleWishlist(it)}
+                  handleWishlist={() => handleWishlist(it)}
                   key={i + 1}
                   title={it.title}
                   authors={it.authors.name}

@@ -154,26 +154,26 @@ const UIProduct = () => {
           </p>
           <p>A Reese Witherspoon x Hello Sunshine Book Club Pick</p>
           <p>
-            "I can't even express how much I love this book! I didn't want this
-            story to end!"--Reese Witherspoon
+            &apos;I can&apos;t even express how much I love this book! I
+            didn&apos;t want this story to end!&apos;--Reese Witherspoon
           </p>
           <p className="my-[20px]">
-            "Painfully beautiful."--The New York Times Book Review
+            &apos;Painfully beautiful.&apos;--The New York Times Book Review
           </p>
           <p className="my-[20px]">
-            "Perfect for fans of Barbara Kingsolver."--Bustle
+            &apos;Perfect for fans of Barbara Kingsolver.&apos;--Bustle
           </p>
           <p className="mb-[20px]">
-            For years, rumors of the "Marsh Girl" have haunted Barkley Cove, a
-            quiet town on the North Carolina coast. So in late 1969, when
-            handsome Chase Andrews is found dead, the locals immediately suspect
-            Kya Clark, the so-called Marsh Girl. But Kya is not what they say.
-            Sensitive and intelligent, she has survived for years alone in the
-            marsh that she calls home, finding friends in the gulls and lessons
-            in the sand. Then the time comes when she yearns to be touched and
-            loved. When two young men from town become intrigued by her wild
-            beauty, Kya opens herself to a new life--until the unthinkable
-            happens.
+            For years, rumors of the &apos;Marsh Girl&apos; have haunted Barkley
+            Cove, a quiet town on the North Carolina coast. So in late 1969,
+            when handsome Chase Andrews is found dead, the locals immediately
+            suspect Kya Clark, the so-called Marsh Girl. But Kya is not what
+            they say. Sensitive and intelligent, she has survived for years
+            alone in the marsh that she calls home, finding friends in the gulls
+            and lessons in the sand. Then the time comes when she yearns to be
+            touched and loved. When two young men from town become intrigued by
+            her wild beauty, Kya opens herself to a new life--until the
+            unthinkable happens.
           </p>
           <p className="mb-[20px]">
             Perfect for fans of Barbara Kingsolver and Karen Russell, Where the
@@ -351,11 +351,10 @@ const UIProduct = () => {
         </h1>
         <div className="grid grid-cols-5 ">
           {DATA_BEST_SELLING.map((it, i) => (
-            <div>
+            <div key={i}>
               <Item
                 img={it.img}
                 onClick={() => handleAdd(it.authors.id)}
-                key={i + 1}
                 title={it.title}
                 authors={it.authors.name}
                 price={it.price}

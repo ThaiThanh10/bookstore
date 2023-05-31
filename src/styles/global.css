@@ -52,8 +52,8 @@ a:hover {
   font-weight: 600;
 }
 /* input:focus { */
-  /* border: #000; */
-  /* box-shadow: none; */
+/* border: #000; */
+/* box-shadow: none; */
 /* } */
 
 .hover-underline-animation::after {
@@ -91,6 +91,6 @@ a:hover {
   min-width: 15px;
   height: 15px;
 }
-.ant-scroll-number-only{
+.ant-scroll-number-only {
   transform: translateY(-5px);
 }

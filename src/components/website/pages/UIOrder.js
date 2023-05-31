@@ -1,9 +1,10 @@
 import { MainContext } from "@/components/context/MainProvider";
+import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
 
 const UIOrder = () => {
   const { orderInfo, setOrderInfo, listCart } = useContext(MainContext);
-
+  const router = useRouter();
   useEffect(() => {
     const _orderInfo = localStorage.getItem("orderInfo");
     const orderInfo = JSON.parse(_orderInfo);
@@ -76,7 +77,9 @@ const UIOrder = () => {
                     </div>
                     <p className="text ml-[50px] "> {it.quantity}</p>
                   </div>
-                  <h1 className="text">{(it.quantity * it.price).toFixed(2)}</h1>
+                  <h1 className="text">
+                    {(it.quantity * it.price).toFixed(2)}
+                  </h1>
                 </div>
               ))}
             </div>
@@ -102,6 +105,20 @@ const UIOrder = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex justify-center items-center gap-x-[30px] ">
+        <button
+          onClick={() => router.push("/")}
+          className="bg-[#000] mt-[30px]  rounded-0 py-4 px-10 text-white text-[20px] button "
+        >
+          Back to homepage
+        </button>
+        <button
+          onClick={() => router.push("/shoplist")}
+          className="bg-[#000] mt-[30px]  rounded-0 py-4 px-10 text-white text-[20px] button "
+        >
+          Continue Shoppping
+        </button>
       </div>
     </div>
   );

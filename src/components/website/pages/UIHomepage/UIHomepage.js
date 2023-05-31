@@ -75,7 +75,7 @@ const UIHomepage = () => {
         <div className="container flex justify-between items-center py-[105px]">
           <div className="w-1/2">
             <p className="text-[#beb4b4] text-[24px] font-extrabold uppercase ">
-              The Bookworm Editors'
+              The Bookworm Editors&apos;
             </p>
             <h1 className="text-[#000] text-semibold text-[56px] py-[15px] ">
               Featured Books of the <br />{" "}

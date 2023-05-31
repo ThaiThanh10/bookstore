@@ -36,9 +36,9 @@ const UIAbout = () => {
           Welcome to Bookworm
         </h1>
         <p className="text my-[42px] italic ">
-          “ Many desktop publishing packages and web page editors now use Lorem
-          Ipsum as their default model search for eolved over sometimes by
-          accident, sometimes on purpose ”
+          &apos; Many desktop publishing packages and web page editors now use
+          Lorem Ipsum as their default model search for eolved over sometimes by
+          accident, sometimes on purpose &apos;
         </p>
         <h2 className=" text-[22px] font-semibold mb-[30px]  ">
           What we really do ?
@@ -193,12 +193,12 @@ const UIAbout = () => {
           Company Partners
         </h1>
         <div className="flex justify-between items-center">
-          <img src={asset('/images/themeForest.png')} alt="" />
-          <img src={asset('/images/codeCanyon.png')} alt="" />
-          <img src={asset('/images/audioJungle.png')} alt="" />
-          <img src={asset('/images/3docean.png')} alt="" />
-          <img src={asset('/images/codeCanyon.png')} alt="" />
-          <img src={asset('/images/themeForest.png')} alt="" />
+          <img src={asset("/images/themeForest.png")} alt="" />
+          <img src={asset("/images/codeCanyon.png")} alt="" />
+          <img src={asset("/images/audioJungle.png")} alt="" />
+          <img src={asset("/images/3docean.png")} alt="" />
+          <img src={asset("/images/codeCanyon.png")} alt="" />
+          <img src={asset("/images/themeForest.png")} alt="" />
         </div>
       </div>
     </div>

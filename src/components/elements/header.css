@@ -2,7 +2,8 @@
     padding: 16px;
     border: none;
     cursor: pointer;
-}.dropdown {
+}
+.dropdown {
     width: max-content;
     position: relative;
 }
@@ -40,4 +41,4 @@
 }
 .ant-modal-wrap .ant-modal .ant-modal-content {
     background-color: #eff1f3;
-  }
+}
