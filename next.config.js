@@ -6,17 +6,19 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  
 };
-
+// const withCSS = require("@zeit/next-css");
+// module.exports = withCSS;
 module.exports = nextConfig;
-module.exports = {
-  async redirects() {
-    return [
-      {
-        source: "/about",
-        destination: "/",
-        permanent: false,
-      },
-    ];
-  },
-};
+// module.exports = {
+//   async redirects() {
+//     return [
+//       {
+//         source: "/about",
+//         destination: "/",
+//         permanent: false,
+//       },
+//     ];
+//   },
+// };

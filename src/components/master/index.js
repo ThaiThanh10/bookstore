@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import CONFIG from "web.config";
-
+import '@/styles/global.css'
 const Footer = dynamic(() => import("@/components/elements/Footer"));
 const Header = dynamic(() => import("@/components/elements/Header"), {
   ssr: false,
