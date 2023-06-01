@@ -226,7 +226,7 @@ const Header = () => {
                 </button>
               </div>
             </div>
-            <button className="mr-[20px]" onClick={handleDelete}>
+            <button className="mr-[20px]" onClick={() => handleDelete(it)}>
               <CloseOutlined />
             </button>
           </div>
@@ -293,7 +293,7 @@ const Header = () => {
         <div className="flex justify-between items-center relative flex-wrap py-[23px] px-[60px] ">
           <div className="flex justify-between items-center">
             <a>
-              <img src={asset("images/logo.svg")} alt="" />
+              <img src={asset("/images/logo.svg")} alt="" />
             </a>
             <ul className="flex justify-center items-center gap-x-[50px] ml-[80px] mt-[5px] ">
               <div className=" dropDown  ">
@@ -442,7 +442,10 @@ const Header = () => {
                   placeholder="Search for Books by Keyword ..."
                 />
               </div>
-              <button onClick={handleSearch} className="bg-[#f6f5f3] outline-none px-[7px]   ">
+              <button
+                onClick={handleSearch}
+                className="bg-[#f6f5f3] outline-none px-[7px]   "
+              >
                 <SearchOutlined />
               </button>
             </div>

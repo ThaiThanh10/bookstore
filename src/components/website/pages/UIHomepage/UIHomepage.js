@@ -64,6 +64,7 @@ const UIHomepage = () => {
   useEffect(() => {
     if (listCart) {
       setCount(listCart.length);
+      localStorage.setItem("listCart", JSON.stringify(listCart));
     }
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   }, [listCart, wishlist]);
@@ -213,7 +214,7 @@ const UIHomepage = () => {
                       handleWishlist={() => handleWishlist(it)}
                       img={it.img}
                       className="bg-[#000]"
-                      onClick={() => handleAdd(it.authors.id)}
+                      onClick={() => handleBuy(it)}
                       key={i + 1}
                       title={it.title}
                       authors={it.authors.name}

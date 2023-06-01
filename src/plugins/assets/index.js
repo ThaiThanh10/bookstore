@@ -18,7 +18,7 @@ const asset = (src) => {
                 src = src.replace('/' + CONFIG.NEXT_PUBLIC_BASE_PATH, '');
                 return CONFIG.NEXT_PUBLIC_BASE_PATH + src;
             } else {
-                return src;
+                return 'https://bookstore-i3yw.vercel.app';
             }
         }
     }

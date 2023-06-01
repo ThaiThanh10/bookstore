@@ -116,7 +116,7 @@ const UICart = () => {
                           {it.quantity && (it.price * it.quantity).toFixed(2)}
                         </td>
                         <td className="p-[8px] text-left border border-b-solid border-b-[#eae8e4] w-1/10 ">
-                          <button onClick={() => handleDelete(it.authors.id)}>
+                          <button onClick={() => handleDelete(it)}>
                             Remove
                           </button>
                         </td>

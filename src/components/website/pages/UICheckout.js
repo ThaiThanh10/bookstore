@@ -35,6 +35,8 @@ const UICheckout = () => {
       data: orderInfo,
     });
     localStorage.setItem('orderInfo',JSON.stringify(orderInfo))
+    localStorage.removeItem('count')
+    localStorage.removeItem('listCart')
     router.push('/order')
   };
   useEffect(() => {

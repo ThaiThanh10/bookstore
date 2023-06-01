@@ -38,8 +38,10 @@ const MainProvider = ({ children }) => {
       message.success("Item has been added successfully");
     } else {
       it.isLike = false;
-      const result = newList.filter((it) => it.id !== isSameItem);
+      const result = newList.filter((it) => it.isLike == true );
+      console.log('🚀result---->', result);
       setWishlist(result);
+      localStorage.setItem('wishlist',JSON.stringify(result))
       message.success("Item has been removed ");
     }
     
@@ -69,9 +71,11 @@ const MainProvider = ({ children }) => {
       message.success("Item has been added successfully");
     }
   };
-  const handleDelete = (key) => {
-    const newList = listCart.filter((it) => it.authors.id !== key);
+  const handleDelete = (item) => {
+    console.log('🚀item---->', item);
+    const newList = listCart.filter((it) => it.authors.id !== item.authors.id);
     setListCart(newList);
+    console.log('🚀newList---->', newList);
     const itemPrice = newList.map((it) =>
       parseFloat((it.price * it.quantity).toFixed(2))
     );
