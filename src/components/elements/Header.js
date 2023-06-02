@@ -238,13 +238,16 @@ const Header = () => {
             <ul className="flex justify-between items-center gap-x-[40px] ">
               <li>
                 <a href="#" className="text">
-                  <FontAwesomeIcon icon={faQuestion} className="mr-2" />
+                  <FontAwesomeIcon
+                    icon={faQuestion}
+                    className="mr-2 w-[20px]"
+                  />
                   Can we help you?
                 </a>
               </li>
               <li>
                 <a href="tel:+1246-345-0695" className="text">
-                  <FontAwesomeIcon icon={faPhone} className="mr-2" />
+                  <FontAwesomeIcon icon={faPhone} className="mr-2  w-[20px] " />
                   +1 246-345-0695
                 </a>
               </li>
