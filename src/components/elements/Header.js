@@ -308,7 +308,7 @@ const Header = () => {
               </Link>
             </a>
             <ul className="flex justify-center items-center gap-x-[50px] ml-[80px] mt-[5px] ">
-              <div className=" dropDown  ">
+              {/* <div className=" dropDown  ">
                 <Link
                   className="flex justify-center items-center dropbtn"
                   href="/"
@@ -333,7 +333,7 @@ const Header = () => {
                     <p className="navItem  ">Home 5</p>
                   </li>
                 </div>
-              </div>
+              </div> */}
               <div className="dropDown">
                 <Link
                   className="flex justify-center items-center dropbtn "
