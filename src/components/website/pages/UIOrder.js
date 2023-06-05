@@ -12,7 +12,7 @@ const UIOrder = () => {
   }, []);
 
   return (
-    <div className="py-[65px] bg-[#fff6f6] ">
+    <div className="pb-[65px] pt-[40px] bg-[#fff6f6] mt-[90px] ">
       <div className="max-w-[1280px] mx-auto px-[25px]  ">
         <div>
           <h1 className=" text-[30px] font-medium tracking-wide leading-[48px] mb-[30px] text-center ">
@@ -34,7 +34,10 @@ const UIOrder = () => {
             </div>
             <div className="w-[22%] text-left  ">
               <h1 className="text">Total</h1>
-              <p className="text"> ${orderInfo.total}</p>
+              <p className="text">
+                {" "}
+                ${orderInfo?.total ? orderInfo.total : ""}
+              </p>
             </div>
             <div className="w-[22%] text-left  ">
               <h1 className="text">Payment Method</h1>
@@ -48,15 +51,23 @@ const UIOrder = () => {
             <div>
               <div className="grid grid-cols-3 gap-x-[80px] mb-[25px] ">
                 <h1 className="text">
-                  Name: {`${orderInfo.firstName} ${orderInfo.lastName}`}
+                  Name:{" "}
+                  {orderInfo?.firstName &&
+                    `${orderInfo?.firstName} ${orderInfo?.lastName}`}
                 </h1>
-                <p className="text ml-[50px] ">Phone: {orderInfo.phone} </p>
+                <p className="text ml-[50px] ">Phone: {orderInfo?.phone} </p>
                 <h1 className="text">Email</h1>
               </div>
               <div className="grid grid-cols-3 gap-x-[80px] mb-[25px] ">
-                <h1 className="text">Country: {orderInfo.country}</h1>
-                <p className="text ml-[50px] ">City: {orderInfo.country} </p>
-                <h1 className="text">Address: {orderInfo.address}</h1>
+                <h1 className="text">
+                  Country: {orderInfo?.country && orderInfo?.country}
+                </h1>
+                <p className="text ml-[50px] ">
+                  City: {orderInfo?.country && orderInfo?.country}{" "}
+                </p>
+                <h1 className="text">
+                  Address: {orderInfo?.address && orderInfo?.address}
+                </h1>
               </div>
             </div>
           </div>
@@ -87,7 +98,7 @@ const UIOrder = () => {
           <div className="mt-[30px] border-b border-b-[#eae8e4] border-solid pb-[30px] ">
             <div className="flex justify-between items-center my-[20px] ">
               <h1 className="text">Subtotal</h1>
-              <p className="text">${orderInfo.total}</p>
+              <p className="text">${orderInfo?.total ? orderInfo.total : ""}</p>
             </div>
             <div className="flex justify-between items-center my-[20px] ">
               <h1 className="text">Shipping</h1>
@@ -101,7 +112,7 @@ const UIOrder = () => {
           <div className="mt-[30px] border-b border-b-[#eae8e4] border-solid pb-[30px] ">
             <div className="flex justify-between items-center ">
               <h1 className="text">Total</h1>
-              <p className="text">${orderInfo.total}</p>
+              <p className="text">${orderInfo?.total ? orderInfo.total : ""}</p>
             </div>
           </div>
         </div>

@@ -9,10 +9,8 @@ import {
   UserAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { faPhone, faQuestion } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState } from "react";
-import { Badge, Drawer, Modal, message } from "antd";
+import { Badge, Drawer, Modal, message, Popover } from "antd";
 import Title from "antd/es/typography/Title";
 import axios from "axios";
 import { MainContext } from "../context/MainProvider";
@@ -26,8 +24,24 @@ import { DATA_PAGE_1 } from "../website/pages/UIHomepage/DATA_PAGE_1";
 const RedLink = styled.a`
   color: red;
 `;
+
+const dataCate = [
+  "All",
+  "Magazine",
+  "Novel",
+  "Life",
+  "Arts",
+  "Comics",
+  "Education & Reference",
+  "Humanities & Social & Sciences",
+  "Science & Technology",
+  "Kids",
+  "Sports",
+];
+
 const Header = () => {
   const {
+    userInfo,
     setUserInfo,
     setIsLogin,
     isLogin,
@@ -43,8 +57,52 @@ const Header = () => {
     handleTotal,
     setCount,
   } = useContext(MainContext);
+  const router = useRouter();
+  const title = (
+    <div className="border-b border-b-solid border-b-[#eae8e4] mb-[15px] py-[15px] ">
+      {userInfo.name ? (
+        <h1 className="text">Hello, {userInfo.name}</h1>
+      ) : (
+        <h1 className="text">Hello, {userInfo.email}</h1>
+      )}
+    </div>
+  );
+  const content = (
+    <div>
+      <div
+        onClick={() => {
+          router.push("/account");
+        }}
+        className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
+      >
+        <p className="text ml-[10px]  ">My Account</p>
+      </div>
+      <div
+        onClick={() => {
+          router.push("/account");
+        }}
+        className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
+      >
+        <p className="text ml-[10px]  ">Wishlists</p>
+      </div>
+      <div
+        onClick={() => {
+          router.push("/order");
+        }}
+        className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
+      >
+        <p className="text ml-[10px]  ">Order</p>
+      </div>
+      <div
+        onClick={handleLogout}
+        className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
+      >
+        <p className="text ml-[10px]  ">Log Out</p>
+      </div>
+    </div>
+  );
 
-  const [isModalRegisOpen, setIsModalRegisOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -68,7 +126,6 @@ const Header = () => {
     setResult(result);
   };
 
-  const router = useRouter();
   const handleChange = (ev, isLogin) => {
     const value = ev.target.value;
     const name = ev.target.name;
@@ -140,16 +197,12 @@ const Header = () => {
         password: "",
       });
       setIsLogin(true);
-      handleRegisCancel();
+      handleCancel();
     }
   };
 
-  const showModalRegis = () => {
-    setIsModalRegisOpen(true);
-  };
-
-  const handleRegisCancel = () => {
-    setIsModalRegisOpen(false);
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
   const handleCart = () => {
     localStorage.setItem("count", count);
@@ -157,8 +210,10 @@ const Header = () => {
     router.push("/cart");
   };
   const [tabSignIn, setTabSignIn] = useState(false);
-  const [tabSignUp, setTabSignUp] = useState(true);
+  const [tabSignUp, setTabSignUp] = useState(false);
+
   const handleTabModal = (ev, isSignIn) => {
+    setIsModalOpen(true);
     if (isSignIn) {
       setTabSignIn(true);
       setTabSignUp(false);
@@ -232,71 +287,13 @@ const Header = () => {
           </div>
         ))}
       </Drawer>
-      <div className="border-b-[1px] border-b-[#eae8e4] border-b-solid">
-        <div className="container-fluid px-[60px] ">
-          <div className="flex justify-between items-center py-[10px]">
-            <ul className="flex justify-between items-center gap-x-[40px] ">
-              <li>
-                <a href="#" className="text">
-                  <FontAwesomeIcon
-                    icon={faQuestion}
-                    className="mr-2 w-[20px]"
-                  />
-                  Can we help you?
-                </a>
-              </li>
-              <li>
-                <a href="tel:+1246-345-0695" className="text">
-                  <FontAwesomeIcon icon={faPhone} className="mr-2  w-[20px] " />
-                  +1 246-345-0695
-                </a>
-              </li>
-            </ul>
-            <ul className="flex justify-center items-center gap-x-[40px]">
-              {isLogin ? (
-                <span className="flex gap-x-[40px]">
-                  <li>
-                    <a>
-                      <UserOutlined />
-                    </a>
-                  </li>
-                  <li>
-                    <a onClick={handleLogout}>
-                      <LogoutOutlined />
-                    </a>
-                  </li>
-                </span>
-              ) : (
-                <span className="flex gap-x-[40px]">
-                  <li>
-                    <a>
-                      <UserAddOutlined onClick={showModalRegis} />
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      <LoginOutlined />
-                    </a>
-                  </li>
-                </span>
-              )}
-              <li>
-                <a>
-                  <Badge count={count}>
-                    {/* <Avatar shape="square" size="large" /> */}
-                    <ShoppingCartOutlined onClick={showDrawer} />
-                  </Badge>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div className="relative">
-        <div className="flex justify-between items-center relative flex-wrap py-[23px] px-[60px] ">
+      <div className=" fixed top-0 left-0 w-screen bg-[#fff] z-10 ">
+        <div className="flex justify-between items-center relative flex-wrap py-[13px] px-[60px] ">
           <div className="flex justify-between items-center">
             <a>
-              <img src={asset("/images/logo.svg")} alt="" />
+              <Link href="/">
+                <img src={asset("/images/logo.svg")} alt="" />
+              </Link>
             </a>
             <ul className="flex justify-center items-center gap-x-[50px] ml-[80px] mt-[5px] ">
               <div className=" dropDown  ">
@@ -325,14 +322,21 @@ const Header = () => {
                   </li>
                 </div>
               </div>
-              <div>
+              <div className="dropDown">
                 <Link
-                  className="flex justify-center items-center"
-                  href="/error"
+                  className="flex justify-center items-center dropbtn "
+                  href="/shoplist"
                 >
                   <p className="text mr-[8px] ">Categories</p>
                   <DownOutlined />
                 </Link>
+                <div className="dropdown-content ">
+                  {dataCate.map((it, i) => (
+                    <li key={i}>
+                      <p className="navItem">{it}</p>
+                    </li>
+                  ))}
+                </div>
               </div>
               <div className=" dropDown  ">
                 <Link
@@ -368,21 +372,7 @@ const Header = () => {
                       <p className=" navItem ">Shop Checkout</p>
                     </Link>
                   </li>
-                  <li>
-                    <Link href="/account">
-                      <p className=" navItem ">My Account</p>
-                    </Link>
-                  </li>
                 </div>
-              </div>
-              <div>
-                <Link
-                  className="flex justify-center items-center"
-                  href="/error"
-                >
-                  <p className="text mr-[8px] ">Pages</p>
-                  <DownOutlined />
-                </Link>
               </div>
               <div>
                 <Link
@@ -435,29 +425,69 @@ const Header = () => {
               </div>
             </ul>
           </div>
-          <div className=" my-2 ">
-            <div className="flex">
-              <div>
+          <div>
+            <div className="flex gap-x-[30px] items-center mb-[7px]    ">
+              <div className="flex items-center bg-[#f6f5f3] py-[4px] ">
                 <input
                   onChange={handleChangeSearch}
-                  className="form-control bg-[#f6f5f3] min-w-[400px] p-[10px] text-[18px] min-h-[45px] outline-none border-white"
+                  className="form-control bg-[#f6f5f3] min-w-[300px]  px-[10px] py-[5px] text-[16px] mr-[10px] outline-none border-white"
                   type="search"
                   placeholder="Search for Books by Keyword ..."
                 />
+                <button
+                  onClick={handleSearch}
+                  className=" outline-none px-[7px]  mb-[4px]    "
+                >
+                  <SearchOutlined />
+                </button>
               </div>
-              <button
-                onClick={handleSearch}
-                className="bg-[#f6f5f3] outline-none px-[7px]   "
-              >
-                <SearchOutlined />
-              </button>
+              <div className="flex justify-center items-center pb-[5px] gap-x-[30px]">
+                {isLogin ? (
+                  <span
+                    style={{
+                      clear: "both",
+                      whiteSpace: "nowrap",
+                    }}
+                    className="flex gap-x-[40px]"
+                  >
+                    <Popover
+                      placement="bottomRight"
+                      title={title}
+                      content={content}
+                      trigger="click"
+                    >
+                      {" "}
+                      <UserOutlined />
+                    </Popover>
+                    <a onClick={handleLogout}>
+                      <LogoutOutlined />
+                    </a>
+                  </span>
+                ) : (
+                  <span className="flex gap-x-[40px]">
+                    <a>
+                      <UserAddOutlined onClick={handleTabModal} />
+                    </a>
+                    <a>
+                      <LoginOutlined
+                        onClick={(ev) => handleTabModal(ev, true)}
+                      />
+                    </a>
+                  </span>
+                )}
+                <a>
+                  <Badge count={count}>
+                    <ShoppingCartOutlined onClick={showDrawer} />
+                  </Badge>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <Modal
-        open={isModalRegisOpen}
-        onCancel={handleRegisCancel}
+        open={isModalOpen}
+        onCancel={handleCancel}
         width={700}
         footer={null}
       >
@@ -496,8 +526,8 @@ const Header = () => {
                   placeholder="Email"
                   pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                 />
-                {err.email && <span>{err.email}</span>}
-                {err.emailWrongRegex && <span>{err.emailWrongRegex}</span>}
+                {err.email && <span className="text text-red-500">{err.email}</span>}
+                {err.emailWrongRegex && <span className="text text-red-500">{err.emailWrongRegex}</span>}
                 <label className="text">Password</label>
                 <input
                   onChange={handleChange}
@@ -507,7 +537,7 @@ const Header = () => {
                   name="password"
                   placeholder="Password"
                 />
-                {err.password && <span>{err.password}</span>}
+                {err.password && <span className="text text-red-500">{err.password}</span>}
                 <div className="w-full flexCenter ">
                   <button
                     className="btn btn-secondary px-[20px] py-[7px] mt-[20px] "

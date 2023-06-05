@@ -11,27 +11,27 @@ import wishlist from "@/pages/account/wishlist/index.js";
 
 const listAuthors = [
   {
-    src: asset("/images/barbara-oneil.jpg"),
+    src: asset("images/barbara-oneil.jpg"),
     name: "Barbara Oneil",
     published: "25",
   },
   {
-    src: asset("/images/stephen-king.jpg"),
+    src: asset("images/stephen-king.jpg"),
     name: "Stephen King",
     published: "25",
   },
   {
-    src: asset("/images/david-walliams.jpg"),
+    src: asset("images/david-walliams.jpg"),
     name: "David Walliams",
     published: "25",
   },
   {
-    src: asset("/images/david-walliams.jpg"),
+    src: asset("images/david-walliams.jpg"),
     name: "David Walliams",
     published: "25",
   },
   {
-    src: asset("/images/david-walliams.jpg"),
+    src: asset("images/david-walliams.jpg"),
     name: "David Walliams",
     published: "25",
   },
@@ -72,7 +72,7 @@ const UIHomepage = () => {
   return (
     <div>
       {/* Banner */}
-      <section className="banner mb-[95px] ">
+      <section className="banner mb-[95px] mt-[90px] ">
         <div className="container flex justify-between items-center py-[105px]">
           <div className="w-1/2">
             <p className="text-[#beb4b4] text-[24px] font-extrabold uppercase ">
@@ -90,7 +90,7 @@ const UIHomepage = () => {
           </div>
           <img
             className="scale-[0.75] w-1/2"
-            src={asset("/images/banner.png")}
+            src={asset("images/banner.png")}
             alt=""
           />
         </div>
@@ -109,7 +109,7 @@ const UIHomepage = () => {
             <div className="border-[1px] w-[23%]  px-[35px] py-[25px] rounded-[10px] bg-indigo-100 ">
               <img
                 className="scale-[1.5]"
-                src={asset("/images/gallery.png")}
+                src={asset("images/gallery.png")}
                 alt=""
               />
               <h1 className="text my-[20px]">Arts & Photography</h1>
@@ -118,7 +118,7 @@ const UIHomepage = () => {
             <div className="border-[1px] w-[23%]  px-[25px] py-[25px] rounded-[10px] bg-orange-100 ">
               <img
                 className="scale-[1.5]"
-                src={asset("/images/chef.png")}
+                src={asset("images/chef.png")}
                 alt=""
               />
               <h1 className="text my-[20px]">Food & Drink</h1>
@@ -127,7 +127,7 @@ const UIHomepage = () => {
             <div className="border-[1px] w-[23%]  px-[25px] py-[25px] rounded-[10px] bg-pink-100 ">
               <img
                 className="scale-[1.5]"
-                src={asset("/images/love.png")}
+                src={asset("images/love.png")}
                 alt=""
               />
               <h1 className="text my-[20px]">Romance</h1>
@@ -136,7 +136,7 @@ const UIHomepage = () => {
             <div className="border-[1px] w-[23%]  px-[25px] py-[25px] rounded-[10px] bg-blue-100 ">
               <img
                 className="scale-[1.5]"
-                src={asset("/images/stethoscope.png")}
+                src={asset("images/stethoscope.png")}
                 alt=""
               />
               <h1 className="text my-[20px]"> Health</h1>

@@ -56,7 +56,7 @@ const UIProduct = () => {
           <div className="w-[40%]   ">
             <img
               className="mx-auto pt-[55px] pb-[100px] "
-              src={asset("/images/productDetail.jpg")}
+              src={asset("images/productDetail.jpg")}
               alt=""
             />
           </div>

@@ -16,8 +16,10 @@ const asset = (src) => {
       if (isEnableBasePath) {
         src = src.replace("/" + CONFIG.NEXT_PUBLIC_BASE_PATH, "");
         return CONFIG.NEXT_PUBLIC_BASE_PATH + src;
+        // console.log("🚀src---->", src);
+        // return "https://bookstore-i3yw.vercel.app" + "/" + src;
       } else {
-        return "https://bookstore-i3yw.vercel.app";
+        return "https://bookstore-i3yw.vercel.app" + "/" + src;
       }
     }
   }

@@ -162,27 +162,27 @@ const UIAbout = () => {
         </h1>
         <div className="flex items-start ">
           <TeamBox
-            imgSrc="/images/abdreKowalsy.png"
+            imgSrc="images/abdreKowalsy.png"
             name="Andre Kowalsy"
             position="Client Care"
           />
           <TeamBox
-            imgSrc="/images/thomasSnow.png"
+            imgSrc="images/thomasSnow.png"
             name="Thomas Snow"
             position="CEO/Founder"
           />
           <TeamBox
-            imgSrc="/images/susanMcCain.png"
+            imgSrc="images/susanMcCain.png"
             name="Susan McCain"
             position="Packaging Girl"
           />
           <TeamBox
-            imgSrc="/images/pamelaDoe.png"
+            imgSrc="images/pamelaDoe.png"
             name="Pamela Doe"
             position="Delivery Driver"
           />
           <TeamBox
-            imgSrc="/images/susanMcCain.png"
+            imgSrc="images/susanMcCain.png"
             name="Anna Baranov"
             position="Support"
           />
@@ -193,12 +193,12 @@ const UIAbout = () => {
           Company Partners
         </h1>
         <div className="flex justify-between items-center">
-          <img src={asset("/images/themeForest.png")} alt="" />
-          <img src={asset("/images/codeCanyon.png")} alt="" />
-          <img src={asset("/images/audioJungle.png")} alt="" />
-          <img src={asset("/images/3docean.png")} alt="" />
-          <img src={asset("/images/codeCanyon.png")} alt="" />
-          <img src={asset("/images/themeForest.png")} alt="" />
+          <img src={asset("images/themeForest.png")} alt="" />
+          <img src={asset("images/codeCanyon.png")} alt="" />
+          <img src={asset("images/audioJungle.png")} alt="" />
+          <img src={asset("images/3docean.png")} alt="" />
+          <img src={asset("images/codeCanyon.png")} alt="" />
+          <img src={asset("images/themeForest.png")} alt="" />
         </div>
       </div>
     </div>

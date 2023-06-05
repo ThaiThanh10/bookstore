@@ -15,9 +15,10 @@ const inputStyle = {
 };
 
 const UICheckout = () => {
-  const { userInfo, setTotal, total,orderInfo, setOrderInfo } = useContext(MainContext);
+  const { userInfo, setTotal, total, orderInfo, setOrderInfo } =
+    useContext(MainContext);
 
-  const router = useRouter()
+  const router = useRouter();
   const [value, setValue] = useState(1);
   const onChangeRadio = (e) => {
     setValue(e.target.value);
@@ -34,10 +35,10 @@ const UICheckout = () => {
       method: "POST",
       data: orderInfo,
     });
-    localStorage.setItem('orderInfo',JSON.stringify(orderInfo))
-    localStorage.removeItem('count')
-    localStorage.removeItem('listCart')
-    router.push('/order')
+    localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
+    localStorage.removeItem("count");
+    localStorage.removeItem("listCart");
+    router.push("/order");
   };
   useEffect(() => {
     orderInfo.email = userInfo.email;
@@ -47,7 +48,7 @@ const UICheckout = () => {
 
   return (
     <div>
-      <div className="container  translate-y-[-20px] flex justify-between items-center mt-[70px] pb-[30px] ">
+      <div className="container   flex justify-between items-center mt-[90px] py-[40px] ">
         <h1 className=" text-[30px] font-medium tracking-wide leading-[48px] text-left ">
           Shop
         </h1>
@@ -56,12 +57,11 @@ const UICheckout = () => {
       <div className="py-[65px] bg-[#fff6f6] ">
         <div className="container">
           <h1 className=" text-[30px] font-medium tracking-wide leading-[48px] mb-[30px] text-center ">
-            Your cart
+            Billing Details
           </h1>
           <div>
             <div className="flex justify-between items-start  ">
               <div className="w-[72%] py-[32px] px-[24px] bg-[#fff]">
-                <h1 className="title mb-[30px]">Billing Details</h1>
                 <div>
                   <div className="flex justify-between items-start mb-[20px]">
                     <div className="w-[47%]">
@@ -163,7 +163,9 @@ const UICheckout = () => {
                     </div>
                   </Panel>
                   <Panel header="Total" key="4">
-                    <h1>Total: {(parseInt(total) + value).toFixed(2)}</h1>
+                    <h1>
+                      Total: {total && (parseInt(total) + value).toFixed(2)}
+                    </h1>
                   </Panel>
                 </Collapse>
                 <button

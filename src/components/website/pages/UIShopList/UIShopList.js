@@ -90,9 +90,9 @@ const UIShopList = () => {
   }, [listCart, wishlist]);
 
   return (
-    <div className="mb-[90px]">
+    <div className="my-[90px]  ">
       <div>
-        <div className="container pt-[70px] flex justify-between items-center pb-[30px] ">
+        <div className="container flex justify-between items-center py-[30px] ">
           <h1 className=" text-[30px] font-medium tracking-wide leading-[48px] text-left ">
             Shop
           </h1>
@@ -101,8 +101,8 @@ const UIShopList = () => {
         <span className="w-screen h-[1px] bg-[#eae8e4] block mb-[95px] "></span>
         <div className="container flex justify-between items-start ">
           <div className="w-1/4">
-            <Collapse>
-              <Panel header="Categories">
+            <Collapse defaultActiveKey={["1", "2", "3"]}>
+              <Panel header="Categories" key="1">
                 {dataCate.map((it, i) => (
                   <div
                     key={i}
@@ -117,25 +117,28 @@ const UIShopList = () => {
                   </div>
                 ))}
               </Panel>
-              <Panel header="Languages">
+              <Panel header="Languages" key="2">
                 {dataLang.map((it, i) => (
-                  <p
+                  <div
                     key={i * 3}
                     className="py-[7px] px-[5px]  hover:bg-[#f7f7f7]"
                   >
                     <p className="text ml-[10px] transition-all duration-[0.2s] ease-[ease] hover:translate-x-[15px] ">
                       {it}
                     </p>
-                  </p>
+                  </div>
                 ))}
               </Panel>
-              <Panel header="Format">
+              <Panel header="Format" key="3">
                 {dataFormat.map((it, i) => (
-                  <p key={i} className="py-[7px] px-[5px]  hover:bg-[#f7f7f7]">
+                  <div
+                    key={i}
+                    className="py-[7px] px-[5px]  hover:bg-[#f7f7f7]"
+                  >
                     <p className="text ml-[10px] transition-all duration-[0.2s] ease-[ease] hover:translate-x-[15px] ">
                       {it}
                     </p>
-                  </p>
+                  </div>
                 ))}
               </Panel>
             </Collapse>
