@@ -4,9 +4,9 @@ const asset = (src) => {
   let isEnabledCDN = false;
 
   let isEnableBasePath = false;
-  if (isEnabledCDN == false && CONFIG.NEXT_PUBLIC_BASE_PATH) {
-    isEnableBasePath = true;
-  }
+  // if (isEnabledCDN == false && CONFIG.NEXT_PUBLIC_BASE_PATH) {
+  //   isEnableBasePath = true;
+  // }
 
   function getSrc() {
     if (isEnabledCDN) {
