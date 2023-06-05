@@ -15,9 +15,9 @@ const asset = (src) => {
     } else {
       if (isEnableBasePath) {
         // src = src.replace("/" + CONFIG.NEXT_PUBLIC_BASE_PATH, "");
-        return CONFIG.NEXT_PUBLIC_BASE_PATH + src;
+          // return CONFIG.NEXT_PUBLIC_BASE_PATH + src;
         // console.log("🚀src---->", src);
-        // return "https://bookstore-i3yw.vercel.app" + "/" + src;
+        return "https://bookstore-v899-2bzm3m9p2-thaithanh10.vercel.app" + "/" + src;
       } /* else {
         return "https://bookstore-i3yw.vercel.app" + "/" + src;
       } */
