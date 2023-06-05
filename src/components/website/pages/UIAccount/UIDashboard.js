@@ -14,7 +14,7 @@ const inputStyle = {
 const UIDashboard = () => {
   const { userInfo } = useContext(MainContext);
   const [formInfo, setFormInfo] = useState({
-    name: "",
+    name: userInfo.name,
     gender: "",
     birthday: "",
     phone: "",
@@ -51,6 +51,7 @@ const UIDashboard = () => {
   useEffect(() => {
     setFormInfo({
       ...formInfo,
+      name: userInfo.name,
       email: userInfo.email,
       password: userInfo.password,
     });
@@ -71,7 +72,7 @@ const UIDashboard = () => {
             <Input
               onChange={handleChange}
               name="name"
-              value={userInfo.name ? userInfo.name : formInfo.name}
+              value={userInfo.name}
               style={inputStyle}
             />
           </div>

@@ -4,9 +4,9 @@ const asset = (src) => {
   let isEnabledCDN = false;
 
   let isEnableBasePath = false;
-  // if (isEnabledCDN == false && CONFIG.NEXT_PUBLIC_BASE_PATH) {
-  //   isEnableBasePath = true;
-  // }
+  if (isEnabledCDN == false && CONFIG.NEXT_PUBLIC_BASE_PATH) {
+    isEnableBasePath = true;
+  }
 
   function getSrc() {
     if (isEnabledCDN) {
@@ -14,13 +14,13 @@ const asset = (src) => {
       return `${CONFIG.NEXT_PUBLIC_CDN_BASE_PATH}/public${CONFIG.NEXT_PUBLIC_VERSION_CDN}${src}`;
     } else {
       if (isEnableBasePath) {
-        src = src.replace("/" + CONFIG.NEXT_PUBLIC_BASE_PATH, "");
+        // src = src.replace("/" + CONFIG.NEXT_PUBLIC_BASE_PATH, "");
         return CONFIG.NEXT_PUBLIC_BASE_PATH + src;
         // console.log("🚀src---->", src);
         // return "https://bookstore-i3yw.vercel.app" + "/" + src;
-      } else {
+      } /* else {
         return "https://bookstore-i3yw.vercel.app" + "/" + src;
-      }
+      } */
     }
   }
 

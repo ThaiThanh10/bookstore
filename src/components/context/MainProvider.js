@@ -21,10 +21,9 @@ const MainProvider = ({ children }) => {
     firstName: "",
     lastName: "",
     phone: "",
-    email: userInfo.email,
     country: "",
     address: "",
-    note: "",
+    note: "none",
     total: "",
   });
   const handleWishlist = (it) => {

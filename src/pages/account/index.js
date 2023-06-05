@@ -12,7 +12,7 @@ const UIAccount = dynamic(() =>
 const account = () => {
   return (
     <MasterPage title="My Account ">
-      <div className="container flex items-start ">
+      <div className="container flex items-start mt-[90px] ">
         <UIAccount />
         <UIDashboard />
       </div>

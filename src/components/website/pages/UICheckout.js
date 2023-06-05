@@ -9,6 +9,7 @@ const inputStyle = {
   border: "1px solid #eae8e4",
   padding: "7px",
   fontSize: "16px",
+  marginBottom: '7px',
   ":focus": {
     border: "1px solid #000",
   },
@@ -20,6 +21,7 @@ const UICheckout = () => {
 
   const router = useRouter();
   const [value, setValue] = useState(1);
+  const [error, setError] = useState({});
   const onChangeRadio = (e) => {
     setValue(e.target.value);
     setOrderInfo({ ...orderInfo, total: (parseInt(total) + value).toFixed(2) });
@@ -30,6 +32,36 @@ const UICheckout = () => {
     setOrderInfo({ ...orderInfo, [name]: value });
   };
   const handleOrder = async () => {
+    let err = {};
+    if (!orderInfo.firstName) {
+      err.firstName = "Please fill this field";
+      setError(err);
+      return;
+    }
+    if (!orderInfo.lastName) {
+      err.lastName = "Please fill this field";
+      setError(err);
+      return;
+    }
+    if (!orderInfo.phone) {
+      err.phone = "Please fill this field";
+      setError(err);
+      return;
+    }
+    if (!orderInfo.country) {
+      err.country = "Please fill this field";
+      setError(err);
+      return;
+    }
+    if (!orderInfo.address) {
+      err.address = "Please fill this field";
+      setError(err);
+      return;
+    }
+    if (!orderInfo.note) {
+      setOrderInfo({ ...orderInfo, note: "none" });
+    }
+
     await api({
       url: "https://testapi.io/api/thaithanh10/resource/OrderInformation",
       method: "POST",
@@ -71,6 +103,11 @@ const UICheckout = () => {
                         name="firstName"
                         style={inputStyle}
                       />
+                      {error.firstName && (
+                        <span className="text text-red-500 mt-[7px]">
+                          {error.firstName}
+                        </span>
+                      )}
                     </div>
                     <div className="w-[47%]">
                       <label className="label">Last name</label>
@@ -79,6 +116,11 @@ const UICheckout = () => {
                         name="lastName"
                         style={inputStyle}
                       />
+                      {error.lastName && (
+                        <span className="text text-red-500 mt-[7px]">
+                          {error.lastName}
+                        </span>
+                      )}
                     </div>
                   </div>
                   <div className="flex justify-between items-start  mb-[20px]">
@@ -89,15 +131,14 @@ const UICheckout = () => {
                         name="phone"
                         style={inputStyle}
                       />
+                      {error.phone && (
+                        <span className="text text-red-500 mt-[7px]">{error.phone}</span>
+                      )}
                     </div>
+
                     <div className="w-[47%]">
                       <label className="label">Email</label>
-                      <Input
-                        value={userInfo.email}
-                        onChange={handleChange}
-                        name="email"
-                        style={inputStyle}
-                      />
+                      <Input onChange={handleChange} style={inputStyle} />
                     </div>
                   </div>
                   <div className=" mb-[20px]">
@@ -107,6 +148,9 @@ const UICheckout = () => {
                       name="country"
                       style={inputStyle}
                     />
+                    {error.country && (
+                      <span className="text text-red-500 mt-[7px]">{error.country}</span>
+                    )}
                   </div>
                   <div className=" mb-[20px]">
                     <label className="label">Address</label>
@@ -115,6 +159,9 @@ const UICheckout = () => {
                       name="address"
                       style={inputStyle}
                     />
+                    {error.address && (
+                      <span className="text text-red-500 mt-[7px]">{error.address}</span>
+                    )}
                   </div>
                   <div className=" mb-[20px]">
                     <label className="label">Additional Information</label>

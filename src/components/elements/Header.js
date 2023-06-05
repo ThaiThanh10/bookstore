@@ -17,6 +17,7 @@ import { MainContext } from "../context/MainProvider";
 import Link from "next/link";
 import "./header.css";
 const REGEX_EMAIL = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const REGEX_PASSWORD = /^.{8,}$/;
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { api } from "@/config/api";
@@ -79,7 +80,7 @@ const Header = () => {
       </div>
       <div
         onClick={() => {
-          router.push("/account");
+          router.push("/account/wishlist");
         }}
         className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
       >
@@ -104,6 +105,7 @@ const Header = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form, setForm] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -137,6 +139,11 @@ const Header = () => {
   };
   const regis = async () => {
     let err = {};
+    if (!form.name) {
+      err.name = "Please enter Name";
+      setError(err);
+      return;
+    }
     if (!form.email) {
       err.email = "Please enter Email";
       setError(err);
@@ -144,6 +151,11 @@ const Header = () => {
     }
     if (!form.password) {
       err.password = "Please enter Password";
+      setError(err);
+      return;
+    }
+    if (!REGEX_PASSWORD.test(form.password)) {
+      err.emailWrongRegexPassword = "It should be at least 8 characters!";
       setError(err);
       return;
     }
@@ -516,6 +528,18 @@ const Header = () => {
           {tabSignUp && (
             <div className=" pb-[20px] bg-[#fff]">
               <div className="flex justify-center items-start gap-y-[15px] flex-col p-[20px_30px] ">
+                <label className="text">Name</label>
+                <input
+                  onChange={handleChange}
+                  value={form.name}
+                  className=" border-[1px] mr-[18px] bg-[#fff] w-full px-[20px] py-[10px] text-[20px] min-h-[40px] outline-none border-[#000] border-solid"
+                  type="text"
+                  placeholder="John Doe"
+                  name="name"
+                />
+                {err.name && (
+                  <span className="text text-red-500">{err.name}</span>
+                )}
                 <label className="text">Email</label>
                 <input
                   onChange={handleChange}
@@ -523,11 +547,17 @@ const Header = () => {
                   className=" border-[1px] mr-[18px] bg-[#fff] w-full px-[20px] py-[10px] text-[20px] min-h-[40px] outline-none border-[#000] border-solid"
                   type="text"
                   name="email"
-                  placeholder="Email"
+                  placeholder="abc@gmail.com"
                   pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                 />
-                {err.email && <span className="text text-red-500">{err.email}</span>}
-                {err.emailWrongRegex && <span className="text text-red-500">{err.emailWrongRegex}</span>}
+                {err.email && (
+                  <span className="text text-red-500">{err.email}</span>
+                )}
+                {err.emailWrongRegex && (
+                  <span className="text text-red-500">
+                    {err.emailWrongRegex}
+                  </span>
+                )}
                 <label className="text">Password</label>
                 <input
                   onChange={handleChange}
@@ -537,7 +567,15 @@ const Header = () => {
                   name="password"
                   placeholder="Password"
                 />
-                {err.password && <span className="text text-red-500">{err.password}</span>}
+                {err.password && (
+                  <span className="text text-red-500">{err.password}</span>
+                )}
+                {err.emailWrongRegexPassword && (
+                  <span className="text text-red-500">
+                    {err.emailWrongRegexPassword}
+                  </span>
+                )}
+
                 <div className="w-full flexCenter ">
                   <button
                     className="btn btn-secondary px-[20px] py-[7px] mt-[20px] "
