@@ -69,7 +69,6 @@ const UICheckout = () => {
     });
     localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
     localStorage.removeItem("count");
-    localStorage.removeItem("listCart");
     router.push("/order");
   };
   useEffect(() => {
@@ -138,7 +137,7 @@ const UICheckout = () => {
 
                     <div className="w-[47%]">
                       <label className="label">Email</label>
-                      <Input onChange={handleChange} style={inputStyle} />
+                      <Input value={userInfo.email} onChange={handleChange} style={inputStyle} />
                     </div>
                   </div>
                   <div className=" mb-[20px]">

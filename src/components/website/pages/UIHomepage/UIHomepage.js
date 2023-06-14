@@ -3,7 +3,6 @@ import { RightOutlined } from "@ant-design/icons";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { DATA_PAGE_1 } from "./DATA_PAGE_1.js";
-import { DATA_BEST_SELLING } from "./DATA_BEST_SELLING.js";
 import Item from "./Item.js";
 import { MainContext } from "@/components/context/MainProvider.js";
 import DealBox from "./DealBox.js";
@@ -55,8 +54,15 @@ export const BiographiesBooks = () => {
 };
 
 const UIHomepage = () => {
-  const { isLogin, count, setCount, listCart, handleAdd, handleWishlist,wishlist } =
-    useContext(MainContext);
+  const {
+    isLogin,
+    count,
+    setCount,
+    listCart,
+    handleAdd,
+    handleWishlist,
+    wishlist,
+  } = useContext(MainContext);
   const handleBuy = (item) => {
     console.log("🚀itemBUy---->", item);
     handleAdd(item);
@@ -160,6 +166,7 @@ const UIHomepage = () => {
               (it, i) =>
                 i < 5 && (
                   <Item
+                    id={it.id}
                     iconWishlist={it.isLike}
                     handleWishlist={() => handleWishlist(it)}
                     img={it.img}
@@ -190,6 +197,7 @@ const UIHomepage = () => {
                 (it, i) =>
                   i < 6 && (
                     <Item
+                      id={it.id}
                       iconWishlist={it.isLike}
                       handleWishlist={() => handleWishlist(it)}
                       img={it.img}
@@ -210,6 +218,7 @@ const UIHomepage = () => {
                 (it, i) =>
                   i >= 6 && (
                     <Item
+                      id={it.id}
                       iconWishlist={it.isLike}
                       handleWishlist={() => handleWishlist(it)}
                       img={it.img}
@@ -264,6 +273,7 @@ const UIHomepage = () => {
                 (it, i) =>
                   i < 8 && (
                     <Item
+                      id={it.id}
                       iconWishlist={it.isLike}
                       handleWishlist={() => handleWishlist(it)}
                       style={{ width: "1/3" }}

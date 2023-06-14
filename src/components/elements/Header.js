@@ -183,6 +183,7 @@ const Header = () => {
   };
   const handleSignIn = async () => {
     var dataApi = [];
+    let err = {};
     const res = await api({
       url: "https://testapi.io/api/thaithanh10/resource/Register",
       method: "GET",
@@ -210,6 +211,9 @@ const Header = () => {
       });
       setIsLogin(true);
       handleCancel();
+    } else {
+      err.invalidAccount = "Wrong email or password, please try again";
+      setError(err);
     }
   };
 
@@ -272,7 +276,7 @@ const Header = () => {
             className="flex justify-between items-start border border-solid border-[#eae8e4] p-[10px] "
           >
             <div>
-              <img src={asset(`${it.img}`)} alt="" />
+              <img src={`https://picsum.photos/seed/${it.id}/120/180`} /* src={asset(`${it.img}`)}  */alt="" />
             </div>
             <div className="text-left w-2/5">
               <h1 className="text">{it.title}</h1>
@@ -634,6 +638,11 @@ const Header = () => {
                   name="password"
                   placeholder="Password"
                 />
+                {err.invalidAccount && (
+                  <span className="text text-red-500">
+                    {err.invalidAccount}
+                  </span>
+                )}
                 <div className="w-full flexCenter">
                   <button
                     onClick={handleSignIn}

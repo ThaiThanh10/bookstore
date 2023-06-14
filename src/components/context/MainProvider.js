@@ -27,23 +27,26 @@ const MainProvider = ({ children }) => {
     total: "",
   });
   const handleWishlist = (it) => {
-    const newList = [...wishlist];
-    const findSameItem = (element) => element.id === it.id;
-    const isSameItem = wishlist.findIndex(findSameItem);
-    if (isSameItem === -1) {
-      it.isLike = true;
-      newList.push(it);
-      setWishlist(newList);
-      message.success("Item has been added successfully");
+    if (isLogin) {
+      const newList = [...wishlist];
+      const findSameItem = (element) => element.id === it.id;
+      const isSameItem = wishlist.findIndex(findSameItem);
+      if (isSameItem === -1) {
+        it.isLike = true;
+        newList.push(it);
+        setWishlist(newList);
+        message.success("Item has been added successfully");
+      } else {
+        it.isLike = false;
+        const result = newList.filter((it) => it.isLike == true);
+        console.log("🚀result---->", result);
+        setWishlist(result);
+        localStorage.setItem("wishlist", JSON.stringify(result));
+        message.success("Item has been removed ");
+      }
     } else {
-      it.isLike = false;
-      const result = newList.filter((it) => it.isLike == true );
-      console.log('🚀result---->', result);
-      setWishlist(result);
-      localStorage.setItem('wishlist',JSON.stringify(result))
-      message.success("Item has been removed ");
+      message.warning("Please Log In First");
     }
-    
   };
   const handleLogout = () => {
     message.success("Log Out Successfully");
@@ -71,10 +74,10 @@ const MainProvider = ({ children }) => {
     }
   };
   const handleDelete = (item) => {
-    console.log('🚀item---->', item);
-    const newList = listCart.filter((it) => it.authors.id !== item.authors.id);
+    console.log("🚀item---->", item);
+    const newList = listCart.filter((it) => it.id !== item.id);
     setListCart(newList);
-    console.log('🚀newList---->', newList);
+    console.log("🚀newList---->", newList);
     const itemPrice = newList.map((it) =>
       parseFloat((it.price * it.quantity).toFixed(2))
     );
@@ -85,7 +88,7 @@ const MainProvider = ({ children }) => {
     message.success("Remove Successfully");
   };
   const handleAmount = (id, isIncrease) => {
-    const selectedItem = listCart.findIndex((ele) => ele.authors.id == id);
+    const selectedItem = listCart.findIndex((ele) => ele.id == id);
     const newList = [...listCart];
     if (isIncrease) {
       newList[selectedItem].quantity += 1;
@@ -159,7 +162,10 @@ const MainProvider = ({ children }) => {
         handleDelete,
         total,
         setTotal,
-        handleAmount,handleTotal,orderInfo, setOrderInfo
+        handleAmount,
+        handleTotal,
+        orderInfo,
+        setOrderInfo,
       }}
     >
       {children}

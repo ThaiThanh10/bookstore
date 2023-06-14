@@ -89,7 +89,8 @@ const UICart = () => {
                   <div className=" px-[20px] text-left h-full  w-1/2 flex justify-start items-center   ">
                     <img
                       className=" mr-[20px] scale-75  "
-                      src={asset(`${it.img}`)}
+                      src={`https://picsum.photos/seed/${it.id}/120/180`}
+                      /* src={asset(`${it.img}`)} */
                       alt=""
                     />
                     <h1 className="title">{it.title}</h1>
@@ -99,7 +100,7 @@ const UICart = () => {
                   </div>
                   <div className="p-[8px] w-[12.5%]  flexCenter gap-x-[25px] text-center  ">
                     <button
-                      onClick={() => handleAmount(it.authors.id)}
+                      onClick={() => handleAmount(it.id)}
                       className="text-[24px]"
                     >
                       -
@@ -107,7 +108,7 @@ const UICart = () => {
                     <p className="text"> {it.quantity}</p>
                     <button
                       className="text-[24px]"
-                      onClick={() => handleAmount(it.authors.id, true)}
+                      onClick={() => handleAmount(it.id, true)}
                     >
                       +
                     </button>

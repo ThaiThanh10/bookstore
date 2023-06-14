@@ -5,7 +5,7 @@ import React, { useContext, useState } from "react";
 
 const Item = ({
   title,
-  img,
+  id,
   authors,
   price,
   onClick,
@@ -15,7 +15,7 @@ const Item = ({
   return (
     <div className="border-[1px] aspect-[0.6] min-w-[200px] relative z-9 item  border-[#eae8e4] p-[25px] bg-[#fff] flex flex-col justify-between items-start hover:border-[#000] ">
       <div className="mx-auto">
-        <img className="mb-3 px-4 mx-auto" src={asset(`${img}`)} alt="" />
+        <img className="mb-3 px-4 mx-auto" src={`https://picsum.photos/seed/${id}/120/180`} /* src={asset(`${img}`)} */ alt="" />
       </div>
       <div className="overflow-hidden pt-[10px] content w-4/5 z-1 bg-[#fff] absolute bottom-[25px] left-[25px] ">
         <h1 className="w-max">PAPERBACK</h1>

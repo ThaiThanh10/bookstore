@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Collapse, Breadcrumb, Select, Input } from "antd";
+import { Collapse, Breadcrumb, Select, Input, message, Pagination } from "antd";
 import "./shoplist.css";
-import { DATA_PAGE_1 } from "../UIHomepage/DATA_PAGE_1";
+import { DATA, DATA_PAGE_1, fullData } from "../UIHomepage/DATA_PAGE_1";
 import Item from "../UIHomepage/Item";
 import { MainContext } from "@/components/context/MainProvider";
+import Link from "next/link";
+import { api } from "@/config/api";
 const { Panel } = Collapse;
 const dataCate = [
   "All",
@@ -26,6 +28,7 @@ const dataFormat = [
   "Paperback",
 ];
 const dataLang = ["English", "German", "French", "Spanish", "Turkish"];
+
 const UIShopList = () => {
   const {
     setCount,
@@ -80,6 +83,22 @@ const UIShopList = () => {
     );
     console.log("🚀result---->", result);
     setResult(result);
+  };
+  const getData = async () => {
+    const res = await api({
+      url: "https://testapi.io/api/thaithanh10/books",
+      method: "GET",
+    });
+    if (res) {
+      message.success("Get Data Successfully");
+    }
+  };
+  const [current, setCurrent] = useState(1);
+  const onChange = (page) => {
+    setCurrent(page);
+    const dataPage = `DATA_ PAGE_${page}`;
+    console.log("🚀---->", dataPage);
+    setResult(DATA.splice(12,24))
   };
 
   useEffect(() => {
@@ -175,16 +194,19 @@ const UIShopList = () => {
             </div>
             <div className=" grid grid-cols-4 ">
               {result.map((it, i) => (
-                <Item
-                  img={it.img}
-                  onClick={() => handleAdd(it)}
-                  iconWishlist={it.isLike}
-                  handleWishlist={() => handleWishlist(it)}
-                  key={i + 1}
-                  title={it.title}
-                  authors={it.authors.name}
-                  price={it.price}
-                />
+                <Link href={`/shoplist`}>
+                  <Item
+                    id={it.id}
+                    /* img={it.img} */
+                    onClick={() => handleAdd(it)}
+                    iconWishlist={it.isLike}
+                    handleWishlist={() => handleWishlist(it)}
+                    key={i + 1}
+                    title={it.title}
+                    authors={it.authors.name}
+                    price={it.price}
+                  />
+                </Link>
               ))}
             </div>
             <div>
@@ -192,6 +214,16 @@ const UIShopList = () => {
                 <h1 className="text">There is no result for your product</h1>
               )}
             </div>
+            <Pagination
+              style={{
+                margin: "30px auto 0",
+              }}
+              onChange={onChange}
+              total={85}
+              defaultCurrent={current}
+              // showTotal={(total) => `Total ${total} items`}
+              showSizeChanger={false}
+            />
           </div>
         </div>
       </div>

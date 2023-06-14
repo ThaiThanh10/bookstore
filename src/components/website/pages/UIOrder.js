@@ -56,7 +56,7 @@ const UIOrder = () => {
                     `${orderInfo?.firstName} ${orderInfo?.lastName}`}
                 </h1>
                 <p className="text ml-[50px] ">Phone: {orderInfo?.phone} </p>
-                <h1 className="text">Email</h1>
+                <h1 className="text">Email {orderInfo.email} </h1>
               </div>
               <div className="grid grid-cols-3 gap-x-[80px] mb-[25px] ">
                 <h1 className="text">

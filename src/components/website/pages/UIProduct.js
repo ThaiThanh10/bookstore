@@ -7,8 +7,8 @@ import {
   LikeOutlined,
   ShareAltOutlined,
 } from "@ant-design/icons";
-import { DATA_BEST_SELLING } from "./UIHomepage/DATA_BEST_SELLING";
 import Item from "./UIHomepage/Item";
+import { DATA_PAGE_1 } from "./UIHomepage/DATA_PAGE_1";
 const desc = ["Terrible", "Bad", "Normal", "Good", "Wonderful"];
 
 export const ReviewBox = () => {
@@ -40,11 +40,11 @@ export const ReviewBox = () => {
   );
 };
 
-const UIProduct = () => {
+const UIProduct = ({ title, img }) => {
   const [value, setValue] = useState();
   return (
-    <div className="container mb-[90px] mt-[70px] ">
-      <div className=" translate-y-[-20px] flex justify-between items-center pb-[30px] ">
+    <div className="container my-[90px] ">
+      <div className="  flex justify-between items-center py-[30px] ">
         <h1 className=" text-[30px] font-medium tracking-wide leading-[48px] text-left ">
           Product Detail
         </h1>
@@ -56,14 +56,15 @@ const UIProduct = () => {
           <div className="w-[40%]   ">
             <img
               className="mx-auto pt-[55px] pb-[100px] "
-              src={asset("images/productDetail.jpg")}
-              alt=""
+              src={asset(`${img}`)}
+              // src={asset("images/productDetail.jpg")}
+              // alt=""
             />
           </div>
           <div className="w-[60%] pt-[55px] px-[50px] border-l-[#eae8e4] border-l border-solid ">
             <div>
               <h1 className=" text-[28px] font-semibold tracking-wide leading-[48px] text-left ">
-                Where the Crawdads Sing
+                {title}
               </h1>
               <div className="flex justify-center items-center gap-x-[20px] w-max ">
                 <span>
@@ -350,17 +351,20 @@ const UIProduct = () => {
           Customer Also Considered
         </h1>
         <div className="grid grid-cols-5 ">
-          {DATA_BEST_SELLING.map((it, i) => (
-            <div key={i}>
-              <Item
-                img={it.img}
-                onClick={() => handleAdd(it.authors.id)}
-                title={it.title}
-                authors={it.authors.name}
-                price={it.price}
-              />
-            </div>
-          ))}
+          {DATA_PAGE_1.map(
+            (it, i) =>
+              i < 5 && (
+                <div key={i}>
+                  <Item
+                    img={it.img}
+                    onClick={() => handleAdd(it.authors.id)}
+                    title={it.title}
+                    authors={it.authors.name}
+                    price={it.price}
+                  />
+                </div>
+              )
+          )}
         </div>
       </div>
     </div>

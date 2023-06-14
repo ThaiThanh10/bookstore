@@ -7,8 +7,8 @@ const UIProduct = dynamic(() => import("@/components/website/pages/UIProduct"));
 
 const productdetail = () => {
   return (
-    <MasterPage title='Product Detail' >
-      <UIProduct />
+    <MasterPage >
+      <UIProduct  />
     </MasterPage>
   );
 };
