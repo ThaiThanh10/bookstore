@@ -94,3 +94,6 @@ a:hover {
 .ant-scroll-number-only {
   transform: translateY(-5px);
 }
+.item:hover .content{
+  transform: translateY(-45%);
+}

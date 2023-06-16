@@ -1,3 +1,5 @@
+import asset from "@/plugins/assets";
+import { HeartFilled } from "@ant-design/icons";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -6,7 +8,6 @@ const UIErrorPage = () => {
   const handleBack = () => {
     router.push("/");
   };
-
 
   return (
     <div className="container flex justify-center items-center flex-col pt-[110px] pb-[200px] ">

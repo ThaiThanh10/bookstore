@@ -197,13 +197,12 @@ const UIShopList = () => {
                 <Link href={`/shoplist`}>
                   <Item
                     id={it.id}
-                    /* img={it.img} */
                     onClick={() => handleAdd(it)}
                     iconWishlist={it.isLike}
                     handleWishlist={() => handleWishlist(it)}
                     key={i + 1}
                     title={it.title}
-                    authors={it.authors.name}
+                    authors={it.authors[0].author.name}
                     price={it.price}
                   />
                 </Link>

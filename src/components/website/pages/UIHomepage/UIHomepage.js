@@ -167,14 +167,12 @@ const UIHomepage = () => {
                 i < 5 && (
                   <Item
                     id={it.id}
+                    onClick={() => handleAdd(it)}
                     iconWishlist={it.isLike}
                     handleWishlist={() => handleWishlist(it)}
-                    img={it.img}
-                    className="bg-[#000]"
-                    onClick={() => handleAdd(it)}
                     key={i + 1}
                     title={it.title}
-                    authors={it.authors.name}
+                    authors={it.authors[0].author.name}
                     price={it.price}
                   />
                 )
@@ -198,14 +196,12 @@ const UIHomepage = () => {
                   i < 6 && (
                     <Item
                       id={it.id}
+                      onClick={() => handleAdd(it)}
                       iconWishlist={it.isLike}
                       handleWishlist={() => handleWishlist(it)}
-                      img={it.img}
-                      className="bg-[#000]"
-                      onClick={() => handleBuy(it)}
                       key={i + 1}
                       title={it.title}
-                      authors={it.authors.name}
+                      authors={it.authors[0].author.name}
                       price={it.price}
                     />
                   )
@@ -219,14 +215,12 @@ const UIHomepage = () => {
                   i >= 6 && (
                     <Item
                       id={it.id}
+                      onClick={() => handleAdd(it)}
                       iconWishlist={it.isLike}
                       handleWishlist={() => handleWishlist(it)}
-                      img={it.img}
-                      className="bg-[#000]"
-                      onClick={() => handleBuy(it)}
                       key={i + 1}
                       title={it.title}
-                      authors={it.authors.name}
+                      authors={it.authors[0].author.name}
                       price={it.price}
                     />
                   )
@@ -274,14 +268,12 @@ const UIHomepage = () => {
                   i < 8 && (
                     <Item
                       id={it.id}
+                      onClick={() => handleAdd(it)}
                       iconWishlist={it.isLike}
                       handleWishlist={() => handleWishlist(it)}
-                      style={{ width: "1/3" }}
-                      img={it.img}
-                      onClick={() => handleBuy(it)}
                       key={i + 1}
                       title={it.title}
-                      authors={it.authors.name}
+                      authors={it.authors[0].author.name}
                       price={it.price}
                     />
                   )

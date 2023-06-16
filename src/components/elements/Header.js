@@ -59,49 +59,6 @@ const Header = () => {
     setCount,
   } = useContext(MainContext);
   const router = useRouter();
-  const title = (
-    <div className="border-b border-b-solid border-b-[#eae8e4] mb-[15px] py-[15px] ">
-      {userInfo.name ? (
-        <h1 className="text">Hello, {userInfo.name}</h1>
-      ) : (
-        <h1 className="text">Hello, {userInfo.email}</h1>
-      )}
-    </div>
-  );
-  const content = (
-    <div>
-      <div
-        onClick={() => {
-          router.push("/account");
-        }}
-        className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
-      >
-        <p className="text ml-[10px]  ">My Account</p>
-      </div>
-      <div
-        onClick={() => {
-          router.push("/account/wishlist");
-        }}
-        className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
-      >
-        <p className="text ml-[10px]  ">Wishlists</p>
-      </div>
-      <div
-        onClick={() => {
-          router.push("/order");
-        }}
-        className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
-      >
-        <p className="text ml-[10px]  ">Order</p>
-      </div>
-      <div
-        onClick={handleLogout}
-        className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
-      >
-        <p className="text ml-[10px]  ">Log Out</p>
-      </div>
-    </div>
-  );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form, setForm] = useState({
@@ -276,22 +233,22 @@ const Header = () => {
             className="flex justify-between items-start border border-solid border-[#eae8e4] p-[10px] "
           >
             <div>
-              <img src={`https://picsum.photos/seed/${it.id}/120/180`} /* src={asset(`${it.img}`)}  */alt="" />
+              <img
+                src={`https://picsum.photos/seed/${it.id}/120/180`}
+                /* src={asset(`${it.img}`)}  */ alt=""
+              />
             </div>
             <div className="text-left w-2/5">
               <h1 className="text">{it.title}</h1>
               <h1 className="text my-[20px] ">{it.price}</h1>
               <div className="p-[5px]  flex justify-around items-center gap-x-[15px] text-left border border-b-solid border-b-[#eae8e4] ">
-                <button
-                  onClick={() => handleAmount(it.authors.id)}
-                  className="text"
-                >
+                <button onClick={() => handleAmount(it.id)} className="text">
                   -
                 </button>
                 <p className="text"> {it.quantity}</p>
                 <button
                   className="text"
-                  onClick={() => handleAmount(it.authors.id, true)}
+                  onClick={() => handleAmount(it.id, true)}
                 >
                   +
                 </button>
@@ -303,7 +260,7 @@ const Header = () => {
           </div>
         ))}
       </Drawer>
-      <div className=" fixed top-0 left-0 w-screen bg-[#fff] z-10 ">
+      <div className=" fixed top-0 left-0 w-screen bg-[#fff] z-20 ">
         <div className="flex justify-between items-center relative flex-wrap py-[13px] px-[60px] ">
           <div className="flex justify-between items-center">
             <a>
@@ -466,15 +423,57 @@ const Header = () => {
                     }}
                     className="flex gap-x-[40px]"
                   >
-                    <Popover
-                      placement="bottomRight"
-                      title={title}
-                      content={content}
-                      trigger="click"
-                    >
-                      {" "}
-                      <UserOutlined />
-                    </Popover>
+                    <div className="dropdown dropdown-end">
+                      <label tabIndex={0} className="py-[5px]">
+                        <UserOutlined />
+                      </label>
+                      <div
+                        style={{
+                          width: 200,
+                        }}
+                        tabIndex={0}
+                        className="dropdown-content menu py-[7px] px-[10px] w-56 shadow bg-base-100 rounded-box mt-[10px] translate-x-[10%] "
+                      >
+                        <div className="border-b border-b-solid border-b-[#eae8e4] mb-[15px] py-[15px] ">
+                          {userInfo.name ? (
+                            <h1 className="text">Hello, {userInfo.name}</h1>
+                          ) : (
+                            <h1 className="text">Hello, {userInfo.email}</h1>
+                          )}
+                        </div>
+
+                        <div
+                          className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
+                          onClick={() => {
+                            router.push("/account");
+                          }}
+                        >
+                          <p className="text ml-[10px]  ">My Account</p>
+                        </div>
+                        <div
+                          onClick={() => {
+                            router.push("/account/wishlist");
+                          }}
+                          className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
+                        >
+                          <p className="text ml-[10px]  ">Wishlists</p>
+                        </div>
+                        <div
+                          onClick={() => {
+                            router.push("/order");
+                          }}
+                          className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
+                        >
+                          <p className="text ml-[10px]  ">Order</p>
+                        </div>
+                        <div
+                          onClick={handleLogout}
+                          className="py-[7px] px-[5px] cursor-pointer hover:bg-[#f7f7f7]"
+                        >
+                          <p className="text ml-[10px]  ">Log Out</p>
+                        </div>
+                      </div>
+                    </div>
                     <a onClick={handleLogout}>
                       <LogoutOutlined />
                     </a>
